@@ -53,7 +53,9 @@ Playwright uses `/usr/bin/chromium` when available, otherwise its installed Chro
 
 ## Deploy
 
-Run `npm ci && npm run build`, then upload the contents of `dist/` to any static host: GitHub Pages, Netlify, Cloudflare Pages or a plain web server. No environment variables or server functions are required. For a GitHub Pages project subpath, run `npm run build -- --base=/tiny-town-merge/` and deploy `dist/`. The app uses no route rewrites. Save data is scoped to the site's origin; use export/import when moving hosts.
+GitHub Pages is deployed automatically by `.github/workflows/deploy-pages.yml` whenever `main` changes. The workflow runs unit tests, builds for `/tiny-town-merge/`, and publishes the artifact using GitHub Pages. The repository Pages source must be set to **GitHub Actions**.
+
+For other hosts, run `npm ci && npm run build`, then upload the contents of `dist/` to any static host: GitHub Pages, Netlify, Cloudflare Pages or a plain web server. No environment variables or server functions are required. For a GitHub Pages project subpath, run `npm run build -- --base=/tiny-town-merge/` and deploy `dist/`. The app uses no route rewrites. Save data is scoped to the site's origin; use export/import when moving hosts.
 
 ## Structure
 
