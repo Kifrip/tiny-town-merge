@@ -20,12 +20,12 @@ describe("building illustrations", () => {
       }
     },
   );
-  it("gives the two cities different architecture at every tier", () => {
+  it("keeps both city palettes and the original coastal details", () => {
     for (let tier = 1; tier <= 20; tier++) {
       const shape = (city: "meadowville" | "sunshore") =>
-        renderToStaticMarkup(createElement(BuildingArt, { city, tier }))
-          .replace(/data-art="[^"]*"/g, "")
-          .replace(/(?:fill|stroke)="[^"]*"/g, "");
+        renderToStaticMarkup(
+          createElement(BuildingArt, { city, tier }),
+        ).replace(/data-art="[^"]*"/g, "");
       expect(shape("meadowville")).not.toEqual(shape("sunshore"));
     }
   });

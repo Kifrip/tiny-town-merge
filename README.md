@@ -64,7 +64,7 @@ For other hosts, run `npm ci && npm run build`, then upload the contents of `dis
 - `src/game/config/`: all buildings, incomes, prices, city parameters, upgrades, progression and economy settings.
 - `src/game/engine/core.ts`: immutable, deterministic actions; board rules; RNG; income; bonuses; clock integration; offline reports; achievements. It has no React or browser dependencies.
 - `src/game/persistence/saves.ts`: JSON validation, recovery and LocalStorage/file operations.
-- `src/components/Building/BuildingArt.tsx`: 40 individually authored SVG building designs with distinct silhouettes, city-specific architecture, and warm window lighting in dark mode.
+- `src/components/Building/BuildingArt.tsx`: original tiered 2.5D building artwork, restored to the previous silhouettes and palettes, with warm window lighting in dark mode.
 - `src/components/Art.tsx`: shared crates and original interface icons; no extracted assets or external fonts.
 - `src/App.tsx`: game UI, Pointer Events, feedback, menus and optional synthesized audio.
 - `src/styles/game.css`: SVG presentation, shared menus, city themes, animations and reduced-motion support.

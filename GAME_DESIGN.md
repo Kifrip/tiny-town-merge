@@ -31,7 +31,7 @@ Merging source tier `t` awards `t` XP and six seconds of that tier's base income
 
 ## Building collection
 
-Both cities have 20 original names and individually authored SVG architectural designs. Every tier has its own geometry rather than reusing a house or tower template: cottages, log cabins, stepped townhouses, modern villas, turreted estates, colonnaded mansions, balcony apartments, courtyards, clock towers, sawtooth lofts, glass offices, spires, skybridges, solar arches, terraced towers, observatories and monumental landmarks. Coastal tiers use different architecture such as thatched bungalows, sail-shaped offices, a lighthouse market, rounded towers and shell structures. Each tier has its own configured color/roof, income and price; silhouette variations include cottage roofs, wings, turrets, apartments, podiums, setbacks, spires, solar arcs and landmark crowns. Tropical artwork adds coastal palettes and palms. No emoji are used as building art.
+Both cities have 20 original names and procedurally authored SVG architectural designs. Each tier has its own configured color/roof, income and price; silhouette variations include cottage roofs, wings, turrets, apartments, podiums, setbacks, spires, solar arcs and landmark crowns. Tropical artwork adds coastal palettes and palms. No emoji are used as building art.
 
 | Tier | Meadowville         | Sunshore              |
 | ---- | ------------------- | --------------------- |
