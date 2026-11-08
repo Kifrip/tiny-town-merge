@@ -4,11 +4,11 @@
 
 Generate a crate → open a building → match two identical tiers → earn XP and a small coin reward → grow income → reinvest in buildings and upgrades → unlock land and Sunshore.
 
-The first city begins with six empty plots in a centered 2×3 rectangle. The outer plots preview future land. Crate progress begins one second from completion, and each of the first four crates can be delivered with a single tap. There is no mandatory tutorial or input lock.
+The first city begins with six empty plots in a centered 2×3 rectangle. Locked plots stay hidden. Only usable land is visible; the camera starts close to the six plots and smoothly pulls back as new plots unlock. Crate progress begins one second from completion, and each of the first four crates can be delivered with a single tap. There is no mandatory tutorial or input lock.
 
 ## Board rules
 
-Each city has 25 plots in a 5×5 board. Configured plot order grows outward from the starting neighborhood. An unlocked plot contains nothing, a crate, or a building.
+Each city can grow to 25 plots in a 5×5 board. The straight, enlarged canvas renders only unlocked plots and fits its camera to their current bounds. Configured plot order grows outward from the starting neighborhood. An unlocked plot contains nothing, a crate, or a building.
 
 - Two equal tiers below 20 merge into exactly the next tier in the target plot. Source becomes empty; source tier determines XP. Party status survives a merge.
 - Any building can move to any empty unlocked plot, irrespective of adjacency.
@@ -96,7 +96,7 @@ Settings offers JSON export/import, manual save, autosave preferences and a two-
 
 ## Presentation and accessibility
 
-The interface uses a warm cream/green palette, elevated grassy plots, original scalable SVG buildings, separate coastal theming, clear full/locked indicators, compact statistics, a collection, and keyboard-friendly modal menus. Merge bursts, floating XP, opening bounces, plot unlocks, city fades and optional synthesized chimes provide fast feedback. System and in-game reduced-motion preferences suppress animation. Important menus are available on the bottom navigation; small-screen spark controls are also in Upgrades.
+The interface uses a warm cream/green palette, elevated grassy plots, original scalable SVG buildings, separate coastal theming, clear full-board indicators and hidden future land, compact statistics, a collection, and keyboard-friendly modal menus. Merge bursts, floating XP, opening bounces, plot unlocks, city fades and optional synthesized chimes provide fast feedback. System and in-game reduced-motion preferences suppress animation. Important menus are available on the bottom navigation; small-screen spark controls are also in Upgrades.
 
 ## Differences from the reference
 

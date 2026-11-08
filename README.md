@@ -22,6 +22,8 @@ The production site is in `dist/`.
 
 ## Play
 
+The enlarged, straight board starts with only six visible plots. New plots appear as levels unlock them; the camera smoothly pulls back to fit the growing town. Existing save positions and neighborhood bonuses retain the same coordinates.
+
 - Your first automatic crate arrives after one second. Tap the large delivery button for instant welcome crates; after the first four, time and taps share the normal delivery counter.
 - Tap a crate to open it. Drag identical buildings together, or tap a building and then a matching target, to merge. Selected buildings highlight their matches.
 - Drag onto empty land to move; onto a different building tier to swap. Keyboard users can focus plots and press Enter or Space to select and target.
@@ -71,4 +73,4 @@ See [GAME_DESIGN.md](GAME_DESIGN.md) for rules and [BALANCE.md](BALANCE.md) for 
 
 ## Verified release checks
 
-The completed implementation passed 46 Vitest cases, 10 Playwright tests across desktop and mobile, production-build smoke checks at both viewport sizes, and `npm run build`. All five deterministic 15-minute simulations reproduced their committed results. Browser automation used Chromium; physical-device Safari and Firefox testing remains outside this verification.
+The completed implementation passed 50 Vitest cases, 14 Playwright tests across desktop and mobile, production-build smoke checks at both viewport sizes, and `npm run build`. All five deterministic 15-minute simulations reproduced their committed results. Browser automation used Chromium; physical-device Safari and Firefox testing remains outside this verification.

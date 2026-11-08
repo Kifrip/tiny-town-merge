@@ -82,7 +82,7 @@ a {
   text-decoration: none;
 }
 .app {
-  max-width: 1560px;
+  max-width: 1760px;
   margin: auto;
   padding: 0 52px;
   min-height: 100dvh;
@@ -142,17 +142,6 @@ a {
 }
 .settings-top {
   display: none !important;
-}
-.game-layout {
-  display: grid;
-  grid-template-columns: minmax(190px, 1fr) minmax(380px, 610px) minmax(
-      190px,
-      1fr
-    );
-  gap: 48px;
-  max-width: 1320px;
-  margin: 38px auto 35px;
-  align-items: start;
 }
 .left-sidebar,
 .right-sidebar {
@@ -460,33 +449,8 @@ a {
   letter-spacing: 2px;
   font-weight: 650;
 }
-.town-island {
-  position: relative;
-  max-width: 450px;
-  margin: auto;
-  perspective: 1000px;
-  z-index: 2;
-}
-.board {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 6px;
-  position: relative;
-  z-index: 2;
-  padding: 12px 10px 19px;
-  background: #adc583;
-  border: 3px solid #bacf96;
-  border-radius: 27px;
-  transform: rotate(-3deg);
-  box-shadow:
-    0 7px 0 #8faa6f,
-    0 12px 0 #b7a97e,
-    0 14px 0 #a89a70,
-    0 22px 15px #5c73452a;
-}
 .plot {
-  position: relative;
-  aspect-ratio: 1.08;
+  position: absolute;
   border-radius: 12px;
   touch-action: none;
   overflow: visible;
@@ -508,29 +472,6 @@ a {
 }
 .plot.unlocked:hover .plot-surface {
   background: #d8e8b7;
-}
-.plot.locked {
-  opacity: 1;
-}
-.locked .plot-surface {
-  background: #a8c182;
-  border-color: #b7cf91;
-  border-bottom-color: #9ab571;
-  border-style: dashed;
-  box-shadow: none;
-}
-.locked-mark {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  color: #76975c;
-  opacity: 0.52;
-}
-.locked-mark small {
-  font-size: 8px;
 }
 .empty-mark {
   position: absolute;
@@ -556,7 +497,7 @@ a {
   left: -6%;
   width: 112%;
   height: 125%;
-  transform: rotate(3deg);
+  transform: none;
   filter: drop-shadow(0 3px 2px #53733d1a);
   transform-origin: 50% 80%;
   z-index: 1;
@@ -584,7 +525,7 @@ a {
   place-items: center;
   border-radius: 50%;
   z-index: 2;
-  transform: rotate(3deg);
+  transform: none;
 }
 .party-tag {
   position: absolute;
@@ -605,7 +546,7 @@ a {
   letter-spacing: 0.5px;
   color: #876339;
   z-index: 2;
-  transform: rotate(3deg);
+  transform: none;
 }
 .is-selected {
   z-index: 5;
@@ -1721,27 +1662,12 @@ a {
   );
   border-color: #dfd7b8;
 }
-.sunshore .board {
-  background: #d4c799;
-  border-color: #e5d8ab;
-  box-shadow:
-    0 7px 0 #bcad7c,
-    0 12px 0 #c7b184,
-    0 14px 0 #b69b6d,
-    0 22px 15px #876e3e2a;
-}
 .sunshore .plot-surface {
   background: #ede1b9;
   border-color: #f7edce;
   border-bottom-color: #d5c895;
 }
-.sunshore .locked .plot-surface {
-  background: #d6cc9f;
-  border-color: #e2d6ab;
-  border-bottom-color: #c4b98d;
-}
-.sunshore .empty-mark,
-.sunshore .locked-mark {
+.sunshore .empty-mark {
   color: #b1a57e;
 }
 .sunshore .plot.unlocked:hover .plot-surface {
@@ -1764,35 +1690,35 @@ a {
 }
 @keyframes merge-pop {
   0% {
-    transform: rotate(3deg) scale(0.65);
+    transform: scale(0.65);
   }
   55% {
-    transform: rotate(3deg) scale(1.22);
+    transform: scale(1.22);
   }
   100% {
-    transform: rotate(3deg) scale(1);
+    transform: scale(1);
   }
 }
 @keyframes spawn {
   0% {
-    transform: rotate(3deg) scale(0.35);
+    transform: scale(0.35);
     opacity: 0.2;
   }
   70% {
-    transform: rotate(3deg) scale(1.1);
+    transform: scale(1.1);
   }
   100% {
-    transform: rotate(3deg) scale(1);
+    transform: scale(1);
     opacity: 1;
   }
 }
 @keyframes crate-bob {
   0%,
   100% {
-    transform: rotate(3deg) translateY(0);
+    transform: translateY(0);
   }
   50% {
-    transform: rotate(3deg) translateY(-3px);
+    transform: translateY(-3px);
   }
 }
 @keyframes target-pulse {
@@ -1838,29 +1764,16 @@ a {
   }
 }
 @media (min-width: 1450px) {
-  .game-layout {
-    gap: 60px;
-  }
   .left-sidebar h1 {
     font-size: 43px;
   }
   .landscape {
     padding: 47px 36px 42px;
   }
-  .town-island {
-    max-width: 465px;
-  }
 }
 @media (max-width: 1200px) {
   .app {
     padding: 0 30px;
-  }
-  .game-layout {
-    gap: 26px;
-    grid-template-columns: minmax(160px, 1fr) minmax(360px, 540px) minmax(
-        165px,
-        1fr
-      );
   }
   .left-sidebar h1 {
     font-size: 33px;
@@ -1896,11 +1809,6 @@ a {
   .app {
     padding: 0 30px;
   }
-  .game-layout {
-    grid-template-columns: 200px minmax(360px, 550px);
-    justify-content: center;
-    gap: 30px;
-  }
   .right-sidebar {
     display: none;
   }
@@ -1927,7 +1835,7 @@ a {
 @media (max-width: 760px) {
   .app {
     padding: 0 20px;
-    max-width: 600px;
+    max-width: none;
   }
   .site-header {
     height: 81px;
@@ -1953,11 +1861,6 @@ a {
   .left-sidebar,
   .right-sidebar {
     display: none;
-  }
-  .game-layout {
-    display: block;
-    margin: 21px auto 17px;
-    max-width: 530px;
   }
   .mobile-boost {
     top: 103px;
@@ -1992,14 +1895,6 @@ a {
   .landscape-label {
     font-size: 6px;
     top: 19px;
-  }
-  .town-island {
-    max-width: 420px;
-  }
-  .board {
-    gap: 6px;
-    padding: 11px 9px 18px;
-    border-radius: 24px;
   }
   .plot {
     border-radius: 9px;
@@ -2134,9 +2029,6 @@ a {
   .brand-sub {
     font-size: 5px;
   }
-  .game-layout {
-    margin-top: 17px;
-  }
   .mobile-boost {
     top: 95px;
     right: 15px;
@@ -2192,12 +2084,6 @@ a {
     padding: 39px 20px 32px;
     border-radius: 20px;
   }
-  .board {
-    gap: 5px;
-    padding: 9px 7px 13px;
-    border-width: 2px;
-    border-radius: 20px;
-  }
   .plot-surface {
     border-radius: 8px;
   }
@@ -2219,12 +2105,6 @@ a {
   }
   .open-label {
     font-size: 4px;
-  }
-  .locked-mark small {
-    font-size: 6px;
-  }
-  .locked-mark svg {
-    width: 10px;
   }
   .selection-info strong {
     font-size: 10px;
@@ -2325,13 +2205,6 @@ a {
   .site-header {
     height: 92px;
   }
-  .game-layout {
-    margin-top: 28px;
-    margin-bottom: 25px;
-  }
-  .town-island {
-    max-width: 380px;
-  }
   .landscape {
     min-height: 0;
     padding-top: 35px;
@@ -2373,9 +2246,6 @@ a {
   .site-header {
     height: 67px;
   }
-  .game-layout {
-    margin-top: 16px;
-  }
   .mobile-boost {
     top: 87px;
   }
@@ -2414,9 +2284,6 @@ a {
 @media (max-width: 390px) {
   .site-header {
     height: 64px;
-  }
-  .game-layout {
-    margin-top: 13px;
   }
   .mobile-boost {
     top: 82px;
@@ -2464,4 +2331,156 @@ a {
 }
 .is-earning .coin-medallion {
   animation: coin-glow 2.5s ease-in-out infinite;
+}
+
+/* The town owns the canvas; future land is never rendered as locked plots. */
+.game-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 28px;
+  max-width: 1640px;
+  margin: 18px auto 26px;
+  align-items: start;
+}
+.left-sidebar {
+  display: none;
+}
+.right-sidebar {
+  padding-top: 0;
+}
+.play-area {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 18px;
+}
+.city-tabs {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0 0 14px;
+  align-self: center;
+}
+.town-heading {
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0 0 14px;
+}
+.town-hud {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin-bottom: 14px;
+}
+.landscape {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  height: clamp(400px, calc(100dvh - 480px), 720px);
+  min-height: 0;
+  padding: 0;
+}
+.selection-panel,
+.generator-area,
+.bottom-nav {
+  grid-column: 1 / -1;
+}
+.board-viewport {
+  position: absolute;
+  inset: 34px 24px 33px;
+  z-index: 2;
+}
+.board {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+  transition: transform 650ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+.plot {
+  border-radius: 13px;
+  animation: plot-arrive 550ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+.plot-surface {
+  border-width: 2px;
+  border-bottom-width: 5px;
+  box-shadow:
+    0 4px 0 #95af6c,
+    0 8px 0 #b9a779,
+    0 11px 6px #526b4226;
+  border-radius: 13px;
+}
+.sunshore .plot-surface {
+  box-shadow:
+    0 4px 0 #c0ae79,
+    0 8px 0 #be9e6e,
+    0 11px 6px #82683d26;
+}
+.scenery {
+  z-index: 1;
+}
+.tier-tag {
+  width: 19px;
+  height: 19px;
+  font-size: 9px;
+  right: 6px;
+  bottom: 5px;
+}
+.open-label {
+  font-size: 6px;
+  bottom: 6px;
+}
+@keyframes plot-arrive {
+  from {
+    opacity: 0;
+    transform: scale(0.65) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@media (min-width: 761px) {
+  .site-header {
+    height: 76px;
+  }
+  .app {
+    padding: 0 32px;
+  }
+}
+@media (max-width: 1100px) {
+  .game-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .right-sidebar {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .game-layout {
+    display: block;
+    margin: 13px auto 17px;
+    max-width: none;
+  }
+  .play-area {
+    display: block;
+  }
+  .city-tabs {
+    margin: 0 0 12px;
+  }
+  .town-hud {
+    margin-bottom: 0;
+  }
+  .town-heading {
+    margin: 12px 2px 10px;
+  }
+  .landscape {
+    height: clamp(290px, calc(100dvh - 470px), 460px);
+    padding: 0;
+  }
+  .board-viewport {
+    inset: 26px 10px 28px;
+  }
+  .landscape-label {
+    font-size: 6px;
+  }
+  .landscape-bottom {
+    font-size: 7px;
+  }
 }

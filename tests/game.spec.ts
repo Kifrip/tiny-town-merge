@@ -88,13 +88,11 @@ test("settings import validation, export and reset confirmation", async ({
     .getByRole("button", { name: "Settings", exact: true })
     .last()
     .click();
-  await page
-    .locator('input[type="file"]')
-    .setInputFiles({
-      name: "bad.json",
-      mimeType: "application/json",
-      buffer: Buffer.from('{"version":99}'),
-    });
+  await page.locator('input[type="file"]').setInputFiles({
+    name: "bad.json",
+    mimeType: "application/json",
+    buffer: Buffer.from('{"version":99}'),
+  });
   await expect(page.getByRole("alert")).toBeVisible();
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: "Export save" }).click();
@@ -103,13 +101,11 @@ test("settings import validation, export and reset confirmation", async ({
   );
   const s = newGame();
   s.cities.meadowville.coins = 9876;
-  await page
-    .locator('input[type="file"]')
-    .setInputFiles({
-      name: "town.json",
-      mimeType: "application/json",
-      buffer: Buffer.from(JSON.stringify(s)),
-    });
+  await page.locator('input[type="file"]').setInputFiles({
+    name: "town.json",
+    mimeType: "application/json",
+    buffer: Buffer.from(JSON.stringify(s)),
+  });
   await expect(page.getByTestId("coins")).toHaveText("9.9K");
   await page
     .getByRole("button", { name: "Settings", exact: true })
@@ -174,4 +170,95 @@ test("keyboard board controls and modal escape work", async ({ page }) => {
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toHaveCount(0);
+});
+
+test("only unlocked land appears and the straight camera pulls back on expansion", async ({
+  page,
+}) => {
+  const s = newGame();
+  s.cities.meadowville.board[6] = { kind: "building", tier: 2, party: false };
+  s.cities.meadowville.board[7] = { kind: "building", tier: 2, party: false };
+  s.cities.meadowville.discovered = [2];
+  await page.addInitScript(
+    ({ s, key }) => localStorage.setItem(key, JSON.stringify(s)),
+    { s, key: saveKey },
+  );
+  await page.goto("/");
+  const board = page.getByTestId("board");
+  await expect(page.locator("[data-plot]")).toHaveCount(6);
+  await expect(page.locator('[data-kind="locked"]')).toHaveCount(0);
+  await expect(board).toHaveAttribute("data-rows", "2");
+  const initialScale = Number(await board.getAttribute("data-camera-scale"));
+  await page.getByTestId("plot-6").click();
+  await page.getByTestId("plot-7").click();
+  await expect(page.locator("[data-plot]")).toHaveCount(7);
+  await expect(page.getByTestId("plot-16")).toBeVisible();
+  await expect(board).toHaveAttribute("data-rows", "3");
+  expect(Number(await board.getAttribute("data-camera-scale"))).toBeLessThan(
+    initialScale,
+  );
+  // Wait for the camera's transition; matrix off-diagonals must remain zero.
+  await expect
+    .poll(() =>
+      board.evaluate((el) => {
+        const m = new DOMMatrix(getComputedStyle(el).transform);
+        return [m.b, m.c];
+      }),
+    )
+    .toEqual([0, 0]);
+  await expect
+    .poll(() =>
+      page.getByTestId("plot-16").evaluate((el) => {
+        const plot = el.getBoundingClientRect();
+        const canvas = el.closest(".landscape")!.getBoundingClientRect();
+        return (
+          plot.left >= canvas.left &&
+          plot.right <= canvas.right &&
+          plot.top >= canvas.top &&
+          plot.bottom <= canvas.bottom
+        );
+      }),
+    )
+    .toBe(true);
+});
+
+test("a mature saved city keeps all 25 plots visible and usable", async ({
+  page,
+}) => {
+  const s = newGame();
+  s.cities.meadowville.xp = 538;
+  s.cities.meadowville.board[24] = { kind: "building", tier: 20, party: false };
+  s.cities.meadowville.discovered = [20];
+  await page.addInitScript(
+    ({ s, key }) => {
+      if (!localStorage.getItem(key))
+        localStorage.setItem(key, JSON.stringify(s));
+    },
+    { s, key: saveKey },
+  );
+  await page.goto("/");
+  await expect(page.locator("[data-plot]")).toHaveCount(25);
+  await expect(page.getByTestId("board")).toHaveAttribute("data-columns", "5");
+  for (const index of [0, 4, 20, 24]) {
+    expect(
+      await page.getByTestId(`plot-${index}`).evaluate((el) => {
+        const plot = el.getBoundingClientRect(),
+          canvas = el.closest(".landscape")!.getBoundingClientRect();
+        return (
+          plot.left >= canvas.left &&
+          plot.right <= canvas.right &&
+          plot.top >= canvas.top &&
+          plot.bottom <= canvas.bottom
+        );
+      }),
+    ).toBe(true);
+  }
+  await page.getByTestId("plot-24").click();
+  await expect(page.locator(".selection-info")).toContainText(
+    "Crown of the Meadow",
+  );
+  await page.getByTestId("plot-0").click();
+  await expect(page.getByTestId("plot-0")).toHaveAttribute("data-tier", "20");
+  await page.reload();
+  await expect(page.getByTestId("plot-0")).toHaveAttribute("data-tier", "20");
 });

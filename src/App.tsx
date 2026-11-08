@@ -16,12 +16,7 @@ import {
 import { BUILDINGS, building } from "./game/config/buildings";
 import { CITIES, CITY_IDS } from "./game/config/cities";
 import { ECONOMY, UPGRADES, upgradeCost } from "./game/config/economy";
-import {
-  level,
-  threshold,
-  unlocked,
-  PLOT_ORDER,
-} from "./game/config/progression";
+import { level, threshold, unlocked } from "./game/config/progression";
 import {
   loadGame,
   saveGame,
@@ -29,6 +24,8 @@ import {
   exportSave,
 } from "./game/persistence/saves";
 import { BuildingArt, CrateArt, Icon, Tree } from "./components/Art";
+import { useBoardCamera } from "./components/Board/useBoardCamera";
+import { PLOT_SIZE, PLOT_STEP, WORLD_SIZE } from "./components/Board/camera";
 
 export const fmt = (n: number) =>
   n >= 1e12
@@ -64,6 +61,7 @@ export default function App() {
       x: number;
       y: number;
       tier: number;
+      size: number;
     } | null>(null),
     [hover, setHover] = useState<number | null>(null);
   const [resetConfirm, setResetConfirm] = useState(false),
@@ -87,6 +85,7 @@ export default function App() {
     ready = achievements(game).filter(
       (a) => a.progress >= a.target && !game.claimed.includes(a.id),
     ).length;
+  const camera = useBoardCamera(open, id);
   function persist(s: GameState) {
     if (s.settings.autoSave && !saveGame(s))
       setSaveError(
@@ -286,7 +285,13 @@ export default function App() {
     if (g.moved) {
       const tile = c.board[g.from];
       if (tile?.kind === "building") {
-        setDrag({ from: g.from, x: e.clientX, y: e.clientY, tier: tile.tier });
+        setDrag({
+          from: g.from,
+          x: e.clientX,
+          y: e.clientY,
+          tier: tile.tier,
+          size: e.currentTarget.getBoundingClientRect().width * 1.12,
+        });
         setSelected(g.from);
         const target = document
           .elementFromPoint(e.clientX, e.clientY)
@@ -546,42 +551,51 @@ export default function App() {
             <div className="scenery tree t4">
               <Tree palm={id === "sunshore"} />
             </div>
-            <div className="town-island">
+            <div className="board-viewport" ref={camera.viewportRef}>
               <div
                 className="board"
+                data-testid="board"
+                data-camera-scale={camera.scale}
+                data-columns={camera.columns}
+                data-rows={camera.rows}
+                style={{
+                  width: WORLD_SIZE,
+                  height: WORLD_SIZE,
+                  visibility: camera.ready ? "visible" : "hidden",
+                  transform: `translate(${camera.x}px, ${camera.y}px) scale(${camera.scale})`,
+                }}
                 role="group"
                 aria-label={`${CITIES[id].name} building plots`}
               >
-                {c.board.map((tile, index) => {
-                  const available = open.includes(index),
-                    compatible =
-                      sel?.kind === "building" &&
-                      tile?.kind === "building" &&
-                      sel.tier === tile.tier &&
-                      index !== selected,
-                    plotLevel =
-                      Array.from({ length: 30 }, (_, i) => i + 1).find((l) =>
-                        unlocked(threshold(l)).includes(index),
-                      ) || 1;
+                {open.map((index) => {
+                  const tile = c.board[index];
+                  const compatible =
+                    sel?.kind === "building" &&
+                    tile?.kind === "building" &&
+                    sel.tier === tile.tier &&
+                    index !== selected;
                   return (
                     <button
-                      key={`${index}-${available}`}
+                      key={index}
                       data-plot={index}
                       data-testid={`plot-${index}`}
-                      data-kind={available ? tile?.kind || "empty" : "locked"}
+                      data-kind={tile?.kind || "empty"}
                       data-tier={
                         tile?.kind === "building" ? tile.tier : undefined
                       }
-                      disabled={!available}
-                      className={`plot ${available ? "unlocked" : "locked"} ${selected === index ? "is-selected" : ""} ${compatible ? "compatible" : ""} ${drag?.from === index ? "drag-source" : ""} ${hover === index ? "drag-over" : ""} ${effect?.index === index ? `effect-${effect.kind}` : ""}`}
+                      style={{
+                        left: (index % 5) * PLOT_STEP,
+                        top: Math.floor(index / 5) * PLOT_STEP,
+                        width: PLOT_SIZE,
+                        height: PLOT_SIZE,
+                      }}
+                      className={`plot unlocked ${selected === index ? "is-selected" : ""} ${compatible ? "compatible" : ""} ${drag?.from === index ? "drag-source" : ""} ${hover === index ? "drag-over" : ""} ${effect?.index === index ? `effect-${effect.kind}` : ""}`}
                       aria-label={
-                        !available
-                          ? `Locked plot, unlocks at level ${plotLevel}`
-                          : tile?.kind === "crate"
-                            ? `Open crate on plot ${index + 1}`
-                            : tile?.kind === "building"
-                              ? `${building(id, tile.tier).name}, tier ${tile.tier}, plot ${index + 1}`
-                              : `Empty plot ${index + 1}`
+                        tile?.kind === "crate"
+                          ? `Open crate on plot ${index + 1}`
+                          : tile?.kind === "building"
+                            ? `${building(id, tile.tier).name}, tier ${tile.tier}, plot ${index + 1}`
+                            : `Empty plot ${index + 1}`
                       }
                       onPointerDown={(e) => pointerDown(e, index)}
                       onPointerMove={pointerMove}
@@ -602,26 +616,19 @@ export default function App() {
                       }}
                     >
                       <span className="plot-surface" />
-                      {available ? (
-                        tile?.kind === "building" ? (
-                          <>
-                            <BuildingArt tier={tile.tier} city={id} />
-                            <span className="tier-tag">{tile.tier}</span>
-                            {tile.party && <span className="party-tag">♫</span>}
-                          </>
-                        ) : tile?.kind === "crate" ? (
-                          <>
-                            <CrateArt />
-                            <span className="open-label">TAP TO OPEN</span>
-                          </>
-                        ) : (
-                          <span className="empty-mark">+</span>
-                        )
+                      {tile?.kind === "building" ? (
+                        <>
+                          <BuildingArt tier={tile.tier} city={id} />
+                          <span className="tier-tag">{tile.tier}</span>
+                          {tile.party && <span className="party-tag">♫</span>}
+                        </>
+                      ) : tile?.kind === "crate" ? (
+                        <>
+                          <CrateArt />
+                          <span className="open-label">TAP TO OPEN</span>
+                        </>
                       ) : (
-                        <span className="locked-mark">
-                          <Icon name="lock" size={12} />
-                          <small>{plotLevel}</small>
-                        </span>
+                        <span className="empty-mark">+</span>
                       )}
                       {effect?.index === index && (
                         <span className="merge-effects" key={effect.key}>
@@ -638,7 +645,6 @@ export default function App() {
                   );
                 })}
               </div>
-              <div className="island-edge" />
             </div>
             <div className="landscape-bottom">
               <span>
@@ -885,7 +891,15 @@ export default function App() {
         </div>
       )}
       {drag && (
-        <div className="drag-ghost" style={{ left: drag.x, top: drag.y }}>
+        <div
+          className="drag-ghost"
+          style={{
+            left: drag.x,
+            top: drag.y,
+            width: drag.size,
+            height: (drag.size * 124) / 120,
+          }}
+        >
           <BuildingArt city={id} tier={drag.tier} />
         </div>
       )}
