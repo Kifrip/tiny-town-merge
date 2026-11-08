@@ -23,7 +23,7 @@ import {
   parseSave,
   exportSave,
 } from "./game/persistence/saves";
-import { BuildingArt, CrateArt, Icon, Tree } from "./components/Art";
+import { BuildingArt, CrateArt, Icon } from "./components/Art";
 import { useBoardCamera } from "./components/Board/useBoardCamera";
 import { PLOT_SIZE, PLOT_STEP, WORLD_SIZE } from "./components/Board/camera";
 
@@ -532,25 +532,6 @@ export default function App() {
             </span>
           </div>
           <div className="landscape" key={id}>
-            <div className="cloud cloud-one" />
-            <div className="cloud cloud-two" />
-            <div className="landscape-label">
-              {id === "meadowville"
-                ? "MAKE ROOM FOR WONDER"
-                : "GOOD TIDES & GREAT NEIGHBORS"}
-            </div>
-            <div className="scenery tree t1">
-              <Tree palm={id === "sunshore"} />
-            </div>
-            <div className="scenery tree t2">
-              <Tree palm={id === "sunshore"} />
-            </div>
-            <div className="scenery tree t3">
-              <Tree palm={id === "sunshore"} />
-            </div>
-            <div className="scenery tree t4">
-              <Tree palm={id === "sunshore"} />
-            </div>
             <div className="board-viewport" ref={camera.viewportRef}>
               <div
                 className="board"
@@ -645,15 +626,6 @@ export default function App() {
                   );
                 })}
               </div>
-            </div>
-            <div className="landscape-bottom">
-              <span>
-                <span className="status-dot" />
-                {full
-                  ? "A full, happy neighborhood"
-                  : `${emptyPlots(c).length} plots waiting for a little magic`}
-              </span>
-              <span className="wind-lines">﹏ ﹏</span>
             </div>
           </div>
           <div

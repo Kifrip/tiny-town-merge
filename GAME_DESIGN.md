@@ -8,7 +8,7 @@ The first city begins with six empty plots in a centered 2×3 rectangle. Locked 
 
 ## Board rules
 
-Each city can grow to 25 plots in a 5×5 board. The straight, enlarged canvas renders only unlocked plots and fits its camera to their current bounds. Configured plot order grows outward from the starting neighborhood. An unlocked plot contains nothing, a crate, or a building.
+Each city can grow to 25 plots in a 5×5 board. The straight, enlarged canvas renders only unlocked plots and fits its camera to their current bounds. Decorative trees and scenery gutters are removed; the mobile canvas grows with its width so a mature town uses over 90% of the canvas width even with browser toolbars visible. Configured plot order grows outward from the starting neighborhood. An unlocked plot contains nothing, a crate, or a building.
 
 - Two equal tiers below 20 merge into exactly the next tier in the target plot. Source becomes empty; source tier determines XP. Party status survives a merge.
 - Any building can move to any empty unlocked plot, irrespective of adjacency.
@@ -60,9 +60,9 @@ Discovery is recorded when a crate opens or a merge creates a tier, never merely
 
 ## Cities
 
-**Meadowville:** grassy platforms, deciduous trees, a suburban palette, ten-second deliveries.
+**Meadowville:** grassy platforms, a suburban palette, ten-second deliveries.
 
-**Sunshore:** unlocked at Meadowville level 8; sandy platforms, palms, coastal colors and twenty-second deliveries. It starts with its own six plots and independent coins, XP, collection, upgrades and board. Both unlocked economies keep running regardless of the active city.
+**Sunshore:** unlocked at Meadowville level 8; sandy platforms, coastal architecture and colors and twenty-second deliveries. It starts with its own six plots and independent coins, XP, collection, upgrades and board. Both unlocked economies keep running regardless of the active city.
 
 Select a Sunshore tier 4+ building and pay twelve times its base income to host a permanent party. Each host doubles other buildings in its surrounding 3×3 neighborhood, including diagonals. Hosts do not boost themselves. Hosts may receive a bonus from another host. Multiple neighboring hosts grant exactly one 2× bonus, never unlimited stacking. Row/column distance prevents wrapping across board edges.
 

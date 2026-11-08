@@ -438,17 +438,6 @@ a {
   z-index: -1;
   mask-image: linear-gradient(transparent, #000);
 }
-.landscape-label {
-  position: absolute;
-  top: 20px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  color: #9db186;
-  font-size: 6px;
-  letter-spacing: 2px;
-  font-weight: 650;
-}
 .plot {
   position: absolute;
   border-radius: 12px;
@@ -570,90 +559,6 @@ a {
 }
 .drag-source > .building-art {
   opacity: 0.3;
-}
-.scenery {
-  position: absolute;
-  pointer-events: none;
-  z-index: 3;
-}
-.tree {
-  width: 50px;
-  height: 75px;
-}
-.t1 {
-  left: -5px;
-  top: 50px;
-  transform: rotate(-8deg);
-}
-.t2 {
-  right: -6px;
-  top: 26px;
-  width: 61px;
-  height: 92px;
-}
-.t3 {
-  left: 1px;
-  bottom: 26px;
-  width: 57px;
-  height: 85px;
-}
-.t4 {
-  right: -4px;
-  bottom: 60px;
-  z-index: 1;
-  width: 43px;
-}
-.cloud {
-  position: absolute;
-  width: 65px;
-  height: 16px;
-  border-radius: 50%;
-  background: #fff6;
-  filter: blur(1px);
-}
-.cloud:after {
-  content: "";
-  position: absolute;
-  bottom: 3px;
-  left: 15px;
-  width: 32px;
-  height: 26px;
-  border-radius: 50%;
-  background: #fff6;
-}
-.cloud-one {
-  left: 30px;
-  top: 21px;
-  opacity: 0.7;
-}
-.cloud-two {
-  right: 35px;
-  bottom: 30px;
-  opacity: 0.5;
-}
-.landscape-bottom {
-  position: absolute;
-  bottom: 12px;
-  left: 23px;
-  right: 23px;
-  display: flex;
-  justify-content: space-between;
-  color: #81966c;
-  font-size: 8px;
-}
-.landscape-bottom > span:first-child {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.landscape-bottom .status-dot {
-  width: 4px;
-  height: 4px;
-}
-.wind-lines {
-  color: #9bb586;
-  font-size: 15px;
-  letter-spacing: 3px;
 }
 .selection-panel {
   display: flex;
@@ -1681,10 +1586,6 @@ a {
 .sunshore .generator-text small {
   color: #c7e3d5;
 }
-.sunshore .landscape-label,
-.sunshore .landscape-bottom {
-  color: #aaa07b;
-}
 .sunshore .heading-flower {
   color: #d2b67b;
 }
@@ -1892,26 +1793,11 @@ a {
     min-height: 0;
     padding: 42px 25px 36px;
   }
-  .landscape-label {
-    font-size: 6px;
-    top: 19px;
-  }
   .plot {
     border-radius: 9px;
   }
   .plot-surface {
     border-radius: 9px;
-  }
-  .tree {
-    width: 44px;
-  }
-  .t2 {
-    width: 54px;
-  }
-  .landscape-bottom {
-    left: 17px;
-    right: 17px;
-    font-size: 7px;
   }
   .generator-caption {
     font-size: 7px;
@@ -2087,15 +1973,6 @@ a {
   .plot-surface {
     border-radius: 8px;
   }
-  .tree {
-    width: 38px;
-  }
-  .t2 {
-    width: 46px;
-  }
-  .t3 {
-    width: 42px;
-  }
   .tier-tag {
     width: 12px;
     height: 12px;
@@ -2264,10 +2141,6 @@ a {
     padding-top: 29px;
     padding-bottom: 27px;
   }
-  .landscape-label {
-    top: 13px;
-    font-size: 5px;
-  }
   .selection-panel {
     min-height: 41px;
   }
@@ -2311,13 +2184,6 @@ a {
   }
   .generator-caption {
     margin: 10px 0 11px;
-  }
-  .landscape-bottom {
-    font-size: 6px;
-    bottom: 9px;
-  }
-  .t3 {
-    bottom: 21px;
   }
   .generator-text strong {
     font-size: 19px;
@@ -2383,7 +2249,7 @@ a {
 }
 .board-viewport {
   position: absolute;
-  inset: 34px 24px 33px;
+  inset: 6px;
   z-index: 2;
 }
 .board {
@@ -2411,9 +2277,6 @@ a {
     0 4px 0 #c0ae79,
     0 8px 0 #be9e6e,
     0 11px 6px #82683d26;
-}
-.scenery {
-  z-index: 1;
 }
 .tier-tag {
   width: 19px;
@@ -2471,16 +2334,22 @@ a {
     margin: 12px 2px 10px;
   }
   .landscape {
-    height: clamp(290px, calc(100dvh - 470px), 460px);
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 1 / 1.05;
     padding: 0;
   }
   .board-viewport {
-    inset: 26px 10px 28px;
+    inset: 6px;
   }
-  .landscape-label {
-    font-size: 6px;
+}
+
+@media (max-width: 760px) {
+  /* Spend the phone's width on usable plots instead of scenery gutters. */
+  .generator-caption {
+    display: none;
   }
-  .landscape-bottom {
-    font-size: 7px;
+  .generator-area {
+    margin-bottom: 16px;
   }
 }

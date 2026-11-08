@@ -224,7 +224,9 @@ test("only unlocked land appears and the straight camera pulls back on expansion
 
 test("a mature saved city keeps all 25 plots visible and usable", async ({
   page,
+  isMobile,
 }) => {
+  if (isMobile) await page.setViewportSize({ width: 384, height: 740 });
   const s = newGame();
   s.cities.meadowville.xp = 538;
   s.cities.meadowville.board[24] = { kind: "building", tier: 20, party: false };
@@ -252,6 +254,22 @@ test("a mature saved city keeps all 25 plots visible and usable", async ({
         );
       }),
     ).toBe(true);
+  }
+  await expect(page.locator(".scenery, .tree")).toHaveCount(0);
+  if (isMobile) {
+    await expect
+      .poll(async () =>
+        page.locator(".landscape").evaluate((canvas) => {
+          const plots = [
+            ...canvas.querySelectorAll<HTMLElement>("[data-plot]"),
+          ].map((el) => el.getBoundingClientRect());
+          const width =
+            Math.max(...plots.map((p) => p.right)) -
+            Math.min(...plots.map((p) => p.left));
+          return width / canvas.getBoundingClientRect().width;
+        }),
+      )
+      .toBeGreaterThan(0.9);
   }
   await page.getByTestId("plot-24").click();
   await expect(page.locator(".selection-info")).toContainText(

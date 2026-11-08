@@ -15,7 +15,7 @@ export function fitBoardCamera(plots: number[], width: number, height: number) {
   // Leave headroom for tall roofs, merge particles and the raised plot edges.
   const top = 25,
     bottom = 14,
-    horizontal = 12;
+    horizontal = 6;
   const scale = Math.max(
     0,
     Math.min(
