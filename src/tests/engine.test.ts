@@ -392,3 +392,31 @@ describe("browser storage adapter", () => {
     }
   });
 });
+
+describe("appearance save compatibility", () => {
+  it("upgrades older v1 saves without changing their town", () => {
+    const legacy = JSON.parse(JSON.stringify(two(6)));
+    legacy.cities.meadowville.coins = 3456789;
+    delete legacy.settings.theme;
+    const restored = parseSave(JSON.stringify(legacy), start);
+    expect(restored.settings.theme).toBe("system");
+    expect(restored.cities).toEqual(legacy.cities);
+  });
+  it("round-trips an explicit dark-mode choice", () => {
+    const s = transition(two(), {
+      type: "settings",
+      settings: { theme: "dark" },
+    });
+    expect(parseSave(JSON.stringify(s), start)).toEqual(s);
+  });
+  it.each(["nope", false, null, {}, 3])(
+    "rejects an invalid appearance preference %j",
+    (theme) => {
+      const s = JSON.parse(JSON.stringify(newGame(start)));
+      s.settings.theme = theme;
+      expect(() => parseSave(JSON.stringify(s), start)).toThrow(
+        "Invalid color theme",
+      );
+    },
+  );
+});

@@ -1,3 +1,4 @@
+export type ThemePreference = "system" | "light" | "dark";
 export type CityId = "meadowville" | "sunshore";
 export type UpgradeId = "speed" | "quality" | "income";
 export type Tile =
@@ -24,7 +25,12 @@ export interface GameState {
   seed: number;
   boosts: { incomeUntil: number; speedUntil: number; tokens: number };
   claimed: string[];
-  settings: { sound: boolean; reducedMotion: boolean; autoSave: boolean };
+  settings: {
+    sound: boolean;
+    reducedMotion: boolean;
+    autoSave: boolean;
+    theme: ThemePreference;
+  };
 }
 export type Action =
   | { type: "tap" }

@@ -37,6 +37,10 @@ export function parseSave(raw: string, now = Date.now()): GameState {
     s.claimed.some((v: unknown) => typeof v !== "string")
   )
     throw new Error("Invalid preferences or achievements.");
+  // Earlier v1 saves did not have an appearance setting. Keep their town intact.
+  if (s.settings.theme === undefined) s.settings.theme = "system";
+  if (!["system", "light", "dark"].includes(s.settings.theme))
+    throw new Error("Invalid color theme.");
   for (const id of ["meadowville", "sunshore"] as CityId[]) {
     const c = s.cities?.[id];
     if (

@@ -2068,8 +2068,8 @@ a {
 }
 @keyframes plot-unlock {
   0% {
-    box-shadow: 0 0 0 5px #f5dc8877;
-    background: #f4edc5;
+    box-shadow: 0 0 0 5px var(--unlock-glow, #f5dc8877);
+    background: var(--unlock-flash, #f4edc5);
   }
   100% {
     box-shadow: 0 0 0 0 #f5dc8800;

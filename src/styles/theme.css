@@ -1,0 +1,479 @@
+.appearance-setting {
+  padding: 4px 0 20px;
+  border-bottom: 1px solid #e5eada;
+}
+.appearance-setting > strong {
+  font-size: 12px;
+  font-weight: 600;
+  color: #5f7555;
+}
+.appearance-setting > p {
+  font-size: 10px;
+  color: #8c9c7c;
+  margin: 6px 0 14px;
+  line-height: 1.7;
+}
+.appearance-control {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+.theme-choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 5px;
+  border: 1px solid #dce5cf;
+  border-radius: 10px;
+  background: #edf1e2;
+  color: #819371;
+  font-size: 11px;
+  cursor: pointer;
+}
+.theme-choice.chosen {
+  background: #dce9c9;
+  border-color: #9db686;
+  color: #466b40;
+  box-shadow: inset 0 0 0 1px #a9bd9366;
+}
+.theme-choice input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  margin: 0;
+}
+.theme-choice:focus-within {
+  outline: 3px solid #d8ae5c;
+  outline-offset: 3px;
+}
+:root[data-theme="dark"] {
+  background: #142b25;
+  color-scheme: dark;
+}
+.theme-dark {
+  --unlock-flash: #74905b;
+  --unlock-glow: #adc77855;
+  --night-text: #e5eed9;
+  --night-muted: #a8bea1;
+  --night-border: #3c5748;
+  --night-card: #233d33;
+  --night-panel: #1b302b;
+  --green: #527c51;
+  --line: #3c5748;
+  color: var(--night-text);
+}
+.app.game-screen.theme-dark {
+  background: #142b25;
+}
+.app.game-screen.theme-dark.sunshore {
+  background: #142b38;
+}
+.theme-dark .play-area {
+  background: radial-gradient(ellipse at 45% 30%, #243e33 0%, #142b25 80%);
+}
+.theme-dark.sunshore .play-area {
+  background: radial-gradient(ellipse at 45% 30%, #254550 0%, #142b38 75%);
+}
+.theme-dark .game-title h1,
+.theme-dark .balance strong {
+  color: #e7f1d8;
+}
+.theme-dark .game-title > span {
+  color: #b3c7a7;
+}
+.theme-dark .city-tabs {
+  background: #173127;
+  border-color: #385143;
+}
+.theme-dark .city-tab {
+  color: #abc29d;
+}
+.theme-dark .city-tab.selected {
+  background: #3c5d42;
+  color: #eff5dc;
+  box-shadow: 0 2px 4px #0002;
+}
+.theme-dark .city-tab small {
+  border-color: #657a59;
+  color: #bdceac;
+}
+.theme-dark .balance,
+.theme-dark .income-pill {
+  background: #233e33;
+  border-color: #405b49;
+  box-shadow: 0 3px 0 #0b211d88;
+  color: #bed0ab;
+}
+.theme-dark .coin-medallion {
+  background: #4b482b;
+  color: #edcb76;
+}
+.theme-dark .income-pill strong {
+  color: #c7dfa9;
+}
+.theme-dark .income-pill > svg {
+  color: #e3c77c;
+}
+.theme-dark .game-sparks {
+  background: #514c2f;
+  border-color: #736739;
+  color: #f0d489;
+  box-shadow: 0 3px 0 #292b2088;
+}
+.theme-dark .game-sparks.boost-active {
+  background: #455f35;
+  border-color: #7b9861;
+  color: #def2b0;
+}
+.theme-dark .level-badge {
+  background: #c8ac61;
+  color: #233a28;
+}
+.theme-dark .xp-track {
+  background: #2a4333;
+  border-color: #57704a;
+}
+.theme-dark .xp-track > span {
+  background: #71994f;
+}
+.theme-dark .xp-track > small {
+  color: #f2f6db;
+  text-shadow: 0 1px 1px #243720;
+}
+.theme-dark .plot-count {
+  color: #b7cba6;
+}
+.theme-dark .plot-surface {
+  background: #436343;
+  border-color: #698653;
+  border-bottom-color: #385539;
+  box-shadow:
+    0 4px 0 #2b4932,
+    0 8px 0 #303f2b,
+    0 11px 6px #071a1b55;
+}
+.theme-dark .plot.unlocked:hover .plot-surface {
+  background: #52744b;
+}
+.theme-dark.sunshore .plot-surface {
+  background: #5e6952;
+  border-color: #86916b;
+  border-bottom-color: #485944;
+  box-shadow:
+    0 4px 0 #3f5545,
+    0 8px 0 #334735,
+    0 11px 6px #071a1b55;
+}
+.theme-dark.sunshore .plot.unlocked:hover .plot-surface {
+  background: #718065;
+}
+.theme-dark .empty-mark {
+  color: #adcd84;
+}
+.theme-dark .tier-tag {
+  background: #203c2eeb;
+  border-color: #779463;
+  color: #e0eccc;
+}
+.theme-dark .open-label {
+  color: #fff0bd;
+  text-shadow: 0 1px 1px #56401d;
+}
+.theme-dark .is-selected .plot-surface {
+  background: #747c48;
+  box-shadow:
+    0 0 0 2px #edce7d,
+    0 0 0 5px #e1c57433;
+}
+.theme-dark .compatible .plot-surface {
+  background: #617b45;
+  box-shadow:
+    inset 0 0 0 2px #cbe2a144,
+    0 0 0 2px #a3c278;
+}
+.theme-dark .drag-over .plot-surface {
+  background: #8b8650;
+  box-shadow: 0 0 0 3px #f1d587;
+}
+.theme-dark .building-art {
+  --building-window: #ffd786;
+  --building-glint: #fff1bb;
+}
+.theme-dark .party-tag {
+  color: #f3acb8;
+}
+.theme-dark .merge-effects b {
+  color: #e4f2ba;
+  text-shadow: 0 1px 1px #284226;
+}
+.theme-dark .selection-panel {
+  color: #b2c7a3;
+}
+.theme-dark .selection-panel.has-selection {
+  background: #243e34ed;
+  border-color: #4e6851;
+}
+.theme-dark .selection-info strong {
+  color: #e5eed9;
+}
+.theme-dark .selected-tier {
+  background: #3f5940;
+  color: #d5e7bd;
+}
+.theme-dark .selection-actions .text-button,
+.theme-dark .recycle-button {
+  color: #c7d5aa;
+}
+.theme-dark .recycle-button:hover {
+  background: #3a5240;
+}
+.theme-dark .nav-button {
+  background: #294538;
+  border-color: #496447;
+  color: #c9dcb5;
+  box-shadow: 0 3px 0 #0d261e;
+}
+.theme-dark .nav-button:hover {
+  background: #3b5942;
+}
+.theme-dark .badge {
+  border-color: #294538;
+}
+.theme-dark .generator {
+  background: #346846;
+  border-color: #63865a;
+  box-shadow:
+    0 4px 0 #173d2b,
+    0 8px 14px #07191544;
+}
+.theme-dark .generator:hover {
+  background: #3e7550;
+}
+.theme-dark.sunshore .generator {
+  background: #2d6364;
+  border-color: #508582;
+  box-shadow: 0 4px 0 #173c40;
+}
+.theme-dark .generator.is-full,
+.theme-dark.sunshore .generator.is-full {
+  background: #455b43;
+  border-color: #728466;
+  box-shadow: 0 4px 0 #273b2d;
+}
+.theme-dark .generator-text small {
+  color: #d4e3bf;
+}
+.theme-dark .shop-shortcut .nav-button {
+  background: #4e4c2e;
+  border-color: #797348;
+  color: #e7d594;
+  box-shadow: 0 4px 0 #2b3020;
+}
+.theme-dark .modal-backdrop {
+  background: #071b20aa;
+}
+.theme-dark .modal {
+  background: var(--night-panel);
+  border-color: var(--night-border);
+  color: var(--night-text);
+  box-shadow: 0 20px 80px #0005;
+  scrollbar-color: #516a52 transparent;
+}
+.theme-dark .modal-intro,
+.theme-dark .muted,
+.theme-dark .eyebrow {
+  color: var(--night-muted);
+}
+.theme-dark .modal-heading h2 {
+  color: #edf3df;
+}
+.theme-dark .icon-button {
+  color: #bbd0a9;
+}
+.theme-dark .icon-button:hover {
+  background: #385340;
+}
+.theme-dark .modal-wallet {
+  background: #3a402b;
+  border-color: #58603b;
+  color: #ebd798;
+}
+.theme-dark .modal-wallet span {
+  color: #c6d1ac;
+}
+.theme-dark .shop-item,
+.theme-dark .collection-item {
+  background: var(--night-card);
+  border-color: var(--night-border);
+}
+.theme-dark .shop-art {
+  background: radial-gradient(ellipse at center, #36513a, transparent 70%);
+}
+.theme-dark .shop-item p,
+.theme-dark .collection-item small {
+  color: #b0c5a0;
+}
+.theme-dark .primary-button {
+  background: #52794d;
+  border-color: #759766;
+  color: #f2f6e6;
+}
+.theme-dark .primary-button:hover:not(:disabled) {
+  background: #638b56;
+}
+.theme-dark .primary-button:disabled {
+  background: #2b4335;
+  border-color: #405a44;
+  color: #9db18f;
+}
+.theme-dark .notice {
+  background: #4b442b;
+  color: #f0d6a0;
+}
+.theme-dark .upgrade-item,
+.theme-dark .achievement,
+.theme-dark .setting-row,
+.theme-dark .appearance-setting,
+.theme-dark .reset-section,
+.theme-dark .modal-footer {
+  border-color: var(--night-border);
+}
+.theme-dark .upgrade-icon {
+  background: #314c36;
+  border-color: #506a45;
+  color: #c6dca8;
+}
+.theme-dark .upgrade-item p,
+.theme-dark .upgrade-item h3 small,
+.theme-dark .upgrade-preview {
+  color: #b2c4a0;
+}
+.theme-dark .modal-boosts {
+  background: #323a29;
+  border-color: #56603a;
+}
+.theme-dark .modal-boosts h3 small,
+.theme-dark .modal-boosts p {
+  color: #d4cdaa;
+}
+.theme-dark .boost-button {
+  background: #42492f;
+  border-color: #626a44;
+  color: #e9dfb6;
+}
+.theme-dark .boost-button small {
+  color: #d5cea8;
+}
+.theme-dark .boost-button:not(:disabled):hover {
+  background: #515a39;
+  border-color: #838e57;
+}
+.theme-dark .collection-progress {
+  color: #bed4a9;
+}
+.theme-dark .undiscovered h4 {
+  color: #a6b89b;
+}
+.theme-dark .silhouette {
+  filter: brightness(0) invert(1);
+  opacity: 0.18;
+}
+.theme-dark .mini-progress {
+  background: #304a36;
+}
+.theme-dark .mini-progress span {
+  background: #88ab67;
+}
+.theme-dark .achievement-icon {
+  background: #49462d;
+  color: #dfc885;
+}
+.theme-dark .achievement p,
+.theme-dark .achievement small {
+  color: #b4c8a4;
+}
+.theme-dark .achievement.claimed .achievement-icon {
+  background: #38543b;
+  color: #c3dda6;
+}
+.theme-dark .setting-row strong,
+.theme-dark .appearance-setting > strong {
+  color: #deead0;
+}
+.theme-dark .setting-row p,
+.theme-dark .appearance-setting > p {
+  color: #afc3a2;
+}
+.theme-dark .theme-choice {
+  background: #294335;
+  border-color: #496448;
+  color: #bdcfaf;
+}
+.theme-dark .theme-choice.chosen {
+  background: #456644;
+  border-color: #8ca875;
+  color: #f0f6dd;
+}
+.theme-dark .toggle {
+  background: #2e4838;
+  border-color: #536c4b;
+}
+.theme-dark .toggle.on {
+  background: #71965c;
+  border-color: #95b77b;
+}
+.theme-dark .toggle span {
+  background: #e6eed7;
+}
+.theme-dark .secondary-button {
+  background: #314e39;
+  border-color: #547249;
+  color: #daebc4;
+}
+.theme-dark .secondary-button:hover {
+  background: #405f43;
+}
+.theme-dark .reset-section p {
+  color: #c0bcaa;
+}
+.theme-dark .danger-text {
+  color: #e7ac97;
+}
+.theme-dark .danger-button {
+  background: #995f56;
+  color: #fff0e4;
+}
+.theme-dark .error-message {
+  background: #503831;
+  color: #ffd7b7;
+}
+.theme-dark .welcome-art {
+  background: radial-gradient(ellipse, #38503b, transparent 60%);
+}
+.theme-dark .offline-earnings {
+  background: #2c4433;
+  border-color: #496341;
+}
+.theme-dark .offline-earnings small {
+  color: #b4c8a4;
+}
+.theme-dark .offline-earnings strong {
+  color: #d6e6ac;
+}
+.theme-dark .modal-footer {
+  color: #afc29f;
+}
+.theme-dark .toast {
+  background: #203b2ff5;
+  border-color: #526a48;
+  color: #d5e7bf;
+  box-shadow: 0 7px 35px #0004;
+}
+.theme-dark .toast button {
+  color: #c2d5b0;
+}

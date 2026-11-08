@@ -36,7 +36,7 @@ The game fills the browser viewport with a single canvas: a compact top HUD, the
 
 LocalStorage stores a versioned, validated save after every gameplay action and every two seconds. Page hiding and page exit also save. Both cities advance from real timestamps; offline progress is capped at eight hours. Timed bonuses expire precisely, and repeated return events cannot claim the same time twice.
 
-Settings includes manual saving, JSON export/import, sound, reduced motion, an autosave toggle, and confirmed reset. Imports replace the current game: export first to keep another town. Disabling autosave still saves the preference itself. Unsupported or damaged saves recover to a new game and retain the original under `tiny-town-merge:v1:recovery` when storage permits. Storage failures show an export reminder.
+Settings includes Light, Dark and System appearance modes, manual saving, JSON export/import, sound, reduced motion, an autosave toggle, and confirmed reset. Theme choices persist across reloads and cities; System follows device appearance changes. Older saves migrate to System without changing town progress. Imports replace the current game: export first to keep another town. Disabling autosave still saves the preference itself. Unsupported or damaged saves recover to a new game and retain the original under `tiny-town-merge:v1:recovery` when storage permits. Storage failures show an export reminder.
 
 Browser storage can be removed by clearing site data, private browsing, or browser eviction. Export saves for durable backups and device transfers. Use one active tab per town; simultaneous-tab editing is not coordinated. There is no cloud synchronization.
 
@@ -64,14 +64,16 @@ For other hosts, run `npm ci && npm run build`, then upload the contents of `dis
 - `src/game/config/`: all buildings, incomes, prices, city parameters, upgrades, progression and economy settings.
 - `src/game/engine/core.ts`: immutable, deterministic actions; board rules; RNG; income; bonuses; clock integration; offline reports; achievements. It has no React or browser dependencies.
 - `src/game/persistence/saves.ts`: JSON validation, recovery and LocalStorage/file operations.
-- `src/components/Art.tsx`: original SVG architectural illustrations, environments, crates and icons; no extracted assets or external fonts.
+- `src/components/Building/BuildingArt.tsx`: 40 individually authored SVG building designs with distinct silhouettes, city-specific architecture, and warm window lighting in dark mode.
+- `src/components/Art.tsx`: shared crates and original interface icons; no extracted assets or external fonts.
 - `src/App.tsx`: game UI, Pointer Events, feedback, menus and optional synthesized audio.
 - `src/styles/game.css`: SVG presentation, shared menus, city themes, animations and reduced-motion support.
 - `src/styles/play-screen.css`: viewport-filling game canvas, integrated HUD and bottom dock, safe-area spacing and compact phone layouts.
+- `src/styles/theme.css`: complete night palettes for both cities, building lighting, menus and accessible appearance controls.
 - `src/tests/`, `tests/`, `scripts/`: unit tests, browser tests, reproducible balance simulations and screenshot capture.
 
 See [GAME_DESIGN.md](GAME_DESIGN.md) for rules and [BALANCE.md](BALANCE.md) for economy details. This game is an original interpretation, with its own artwork, names and interface; it is not affiliated with Gram Games.
 
 ## Verified release checks
 
-The completed implementation passed 50 Vitest cases, 16 Playwright tests across desktop and mobile, production-build smoke checks at both viewport sizes, and `npm run build`. All five deterministic 15-minute simulations reproduced their committed results. Browser automation used Chromium; physical-device Safari and Firefox testing remains outside this verification.
+The completed implementation passed 60 Vitest cases, 18 Playwright tests across desktop and mobile, production-build smoke checks at both viewport sizes, and `npm run build`. All five deterministic 15-minute simulations reproduced their committed results. Browser automation used Chromium; physical-device Safari and Firefox testing remains outside this verification.

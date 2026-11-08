@@ -372,3 +372,46 @@ test("the integrated game keeps its HUD, town and controls on screen without scr
   await expect(page.getByRole("dialog")).toContainText("A little extra spark");
   await page.getByRole("button", { name: "Close menu" }).click();
 });
+
+test("theme follows the system, supports an override and survives city changes and refresh", async ({
+  page,
+}) => {
+  const s = newGame();
+  s.cities.meadowville.xp = 90;
+  await page.addInitScript(
+    ({ s, key }) => {
+      if (!localStorage.getItem(key))
+        localStorage.setItem(key, JSON.stringify(s));
+    },
+    { s, key: saveKey },
+  );
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.goto("/");
+  await expect(page.locator(".app")).toHaveClass(/theme-dark/);
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
+  await expect(
+    page.getByRole("radio", { name: "System", exact: true }),
+  ).toBeChecked();
+  await page.getByRole("radio", { name: "Light", exact: true }).check();
+  await expect(page.locator(".app")).toHaveClass(/theme-light/);
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.emulateMedia({ colorScheme: "dark" });
+  await expect(page.locator(".app")).toHaveClass(/theme-light/);
+  await page.getByRole("radio", { name: "Dark", exact: true }).check();
+  await page.getByRole("button", { name: "Close menu" }).click();
+  await page.getByRole("button", { name: "Sunshore", exact: true }).click();
+  await expect(page.locator(".app")).toHaveClass(/theme-dark/);
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute(
+    "content",
+    "#142b38",
+  );
+  await page.reload();
+  await expect(page.locator(".app")).toHaveClass(/theme-dark/);
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
+  await expect(
+    page.getByRole("radio", { name: "Dark", exact: true }),
+  ).toBeChecked();
+  await page.getByRole("radio", { name: "System", exact: true }).check();
+  await page.emulateMedia({ colorScheme: "light" });
+  await expect(page.locator(".app")).toHaveClass(/theme-light/);
+});

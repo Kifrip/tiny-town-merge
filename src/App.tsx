@@ -24,6 +24,7 @@ import {
   exportSave,
 } from "./game/persistence/saves";
 import { BuildingArt, CrateArt, Icon } from "./components/Art";
+import { useTheme } from "./components/useTheme";
 import { useBoardCamera } from "./components/Board/useBoardCamera";
 import { PLOT_SIZE, PLOT_STEP, WORLD_SIZE } from "./components/Board/camera";
 
@@ -86,6 +87,7 @@ export default function App() {
       (a) => a.progress >= a.target && !game.claimed.includes(a.id),
     ).length;
   const camera = useBoardCamera(open, id);
+  const theme = useTheme(game.settings.theme, id);
   function persist(s: GameState) {
     if (s.settings.autoSave && !saveGame(s))
       setSaveError(
@@ -358,7 +360,7 @@ export default function App() {
   }
   return (
     <div
-      className={`app game-screen ${id} ${game.settings.reducedMotion ? "reduce-motion" : ""}`}
+      className={`app game-screen theme-${theme} ${id} ${game.settings.reducedMotion ? "reduce-motion" : ""}`}
     >
       <main className="play-area" aria-label="Town game">
         <header className="game-topbar">
@@ -997,6 +999,46 @@ export default function App() {
                   Your town lives in this browser. Export a backup to take it
                   with you.
                 </p>
+                <div className="appearance-setting">
+                  <strong>Appearance</strong>
+                  <p>Follow your device or choose your favorite time of day.</p>
+                  <div
+                    className="appearance-control"
+                    role="radiogroup"
+                    aria-label="Color theme"
+                  >
+                    {(["system", "light", "dark"] as const).map((option) => (
+                      <label
+                        key={option}
+                        className={`theme-choice ${game.settings.theme === option ? "chosen" : ""}`}
+                      >
+                        <input
+                          type="radio"
+                          name="color-theme"
+                          value={option}
+                          checked={game.settings.theme === option}
+                          onChange={() =>
+                            act({
+                              type: "settings",
+                              settings: { theme: option },
+                            })
+                          }
+                        />
+                        <Icon
+                          name={
+                            option === "system"
+                              ? "monitor"
+                              : option === "dark"
+                                ? "moon"
+                                : "sun"
+                          }
+                          size={18}
+                        />
+                        <span>{option[0].toUpperCase() + option.slice(1)}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
                 <div className="setting-row">
                   <div>
                     <strong>Gentle sounds</strong>

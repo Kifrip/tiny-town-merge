@@ -31,7 +31,7 @@ Merging source tier `t` awards `t` XP and six seconds of that tier's base income
 
 ## Building collection
 
-Both cities have 20 original names and procedurally authored SVG architectural designs. Each tier has its own configured color/roof, income and price; silhouette variations include cottage roofs, wings, turrets, apartments, podiums, setbacks, spires, solar arcs and landmark crowns. Tropical artwork adds coastal palettes and palms. No emoji are used as building art.
+Both cities have 20 original names and individually authored SVG architectural designs. Every tier has its own geometry rather than reusing a house or tower template: cottages, log cabins, stepped townhouses, modern villas, turreted estates, colonnaded mansions, balcony apartments, courtyards, clock towers, sawtooth lofts, glass offices, spires, skybridges, solar arches, terraced towers, observatories and monumental landmarks. Coastal tiers use different architecture such as thatched bungalows, sail-shaped offices, a lighthouse market, rounded towers and shell structures. Each tier has its own configured color/roof, income and price; silhouette variations include cottage roofs, wings, turrets, apartments, podiums, setbacks, spires, solar arcs and landmark crowns. Tropical artwork adds coastal palettes and palms. No emoji are used as building art.
 
 | Tier | Meadowville         | Sunshore              |
 | ---- | ------------------- | --------------------- |
@@ -92,11 +92,11 @@ The engine advances from `lastTick` to a real timestamp, rather than relying on 
 
 LocalStorage schema v1 includes all city data, RNG seed, selected city, achievements, settings, boosts and the accounting timestamp. Loads/imports reject bad types, invalid boards, impossible upgrade levels, negative/nonfinite balances and unsupported versions. Corrupted saves recover gracefully and retain the unreadable data as a recovery backup when possible. There are no older released schemas to migrate.
 
-Settings offers JSON export/import, manual save, autosave preferences and a two-step reset. The welcome-back report lists already-credited earnings and new crates for every unlocked city.
+Settings offers JSON export/import, manual save, autosave preferences, Light/Dark/System appearance, and a two-step reset. The optional appearance field is migrated into older v1 saves as System, preserving all city progress. The welcome-back report lists already-credited earnings and new crates for every unlocked city.
 
 ## Presentation and accessibility
 
-The interface is a single viewport-filling game canvas with a warm cream/green palette, elevated grassy plots, original scalable SVG buildings, separate coastal theming, clear full-board indicators and hidden future land. The city selector, coins, income, XP and sparks form a compact HUD at the top of the same canvas; the delivery crate, shop and four utility buttons form the bottom dock. The town uses all remaining space. There are no website headers, sidebars, footers or page scrolling; menus scroll independently in accessible modal dialogs. Merge bursts, floating XP, opening bounces, plot unlocks, city fades and optional synthesized chimes provide fast feedback. System and in-game reduced-motion preferences suppress animation. All menus are available in the integrated bottom dock; sparks are available from the HUD and Upgrades.
+The interface is a single viewport-filling game canvas with a warm cream/green palette, elevated grassy plots, original scalable SVG buildings, separate coastal theming, clear full-board indicators and hidden future land. The city selector, coins, income, XP and sparks form a compact HUD at the top of the same canvas; the delivery crate, shop and four utility buttons form the bottom dock. The town uses all remaining space. There are no website headers, sidebars, footers or page scrolling; menus scroll independently in accessible modal dialogs. Merge bursts, floating XP, opening bounces, plot unlocks, city fades and optional synthesized chimes provide fast feedback. System and in-game reduced-motion preferences suppress animation. Dark mode has separate meadow and coastal night palettes, warm window lighting, dark menus and cards, and native browser color-scheme support. System appearance follows the device; an explicit Light or Dark choice persists across reloads and cities and is applied before the first app paint. All menus are available in the integrated bottom dock; sparks are available from the HUD and Upgrades.
 
 ## Differences from the reference
 

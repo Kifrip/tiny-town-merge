@@ -30,7 +30,12 @@ export function newGame(now = Date.now(), seed = 78231): GameState {
     seed,
     boosts: { incomeUntil: 0, speedUntil: 0, tokens: ECONOMY.initialSparks },
     claimed: [],
-    settings: { sound: false, reducedMotion: false, autoSave: true },
+    settings: {
+      sound: false,
+      reducedMotion: false,
+      autoSave: true,
+      theme: "system",
+    },
   };
 }
 export const cityUnlocked = (s: GameState, id: CityId) =>

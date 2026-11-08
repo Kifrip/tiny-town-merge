@@ -13,6 +13,27 @@
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Tiny Town Merge</title>
+    <script>
+      // Apply the saved appearance before the app paints; older saves follow the device.
+      try {
+        const preference = JSON.parse(
+          localStorage.getItem("tiny-town-merge:v1") || "{}",
+        ).settings?.theme;
+        const theme =
+          preference === "dark" ||
+          (preference !== "light" &&
+            matchMedia("(prefers-color-scheme: dark)").matches)
+            ? "dark"
+            : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        if (theme === "dark")
+          document.querySelector('meta[name="theme-color"]').content =
+            "#142b25";
+      } catch {
+        /* The save loader handles unreadable storage. */
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
