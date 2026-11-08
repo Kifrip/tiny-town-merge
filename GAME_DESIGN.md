@@ -96,7 +96,7 @@ Settings offers JSON export/import, manual save, autosave preferences and a two-
 
 ## Presentation and accessibility
 
-The interface uses a warm cream/green palette, elevated grassy plots, original scalable SVG buildings, separate coastal theming, clear full-board indicators and hidden future land, compact statistics, a collection, and keyboard-friendly modal menus. Merge bursts, floating XP, opening bounces, plot unlocks, city fades and optional synthesized chimes provide fast feedback. System and in-game reduced-motion preferences suppress animation. Important menus are available on the bottom navigation; small-screen spark controls are also in Upgrades.
+The interface is a single viewport-filling game canvas with a warm cream/green palette, elevated grassy plots, original scalable SVG buildings, separate coastal theming, clear full-board indicators and hidden future land. The city selector, coins, income, XP and sparks form a compact HUD at the top of the same canvas; the delivery crate, shop and four utility buttons form the bottom dock. The town uses all remaining space. There are no website headers, sidebars, footers or page scrolling; menus scroll independently in accessible modal dialogs. Merge bursts, floating XP, opening bounces, plot unlocks, city fades and optional synthesized chimes provide fast feedback. System and in-game reduced-motion preferences suppress animation. All menus are available in the integrated bottom dock; sparks are available from the HUD and Upgrades.
 
 ## Differences from the reference
 

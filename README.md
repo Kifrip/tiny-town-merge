@@ -22,7 +22,7 @@ The production site is in `dist/`.
 
 ## Play
 
-The enlarged, straight board starts with only six visible plots. New plots appear as levels unlock them; the camera smoothly pulls back to fit the growing town. Existing save positions and neighborhood bonuses retain the same coordinates.
+The game fills the browser viewport with a single canvas: a compact top HUD, the town in the middle, and a bottom dock for crates and menus. The enlarged, straight board starts with only six visible plots. New plots appear as levels unlock them; the camera smoothly pulls back to fit the growing town. Existing save positions and neighborhood bonuses retain the same coordinates.
 
 - Your first automatic crate arrives after one second. Tap the large delivery button for instant welcome crates; after the first four, time and taps share the normal delivery counter.
 - Tap a crate to open it. Drag identical buildings together, or tap a building and then a matching target, to merge. Selected buildings highlight their matches.
@@ -66,11 +66,12 @@ For other hosts, run `npm ci && npm run build`, then upload the contents of `dis
 - `src/game/persistence/saves.ts`: JSON validation, recovery and LocalStorage/file operations.
 - `src/components/Art.tsx`: original SVG architectural illustrations, environments, crates and icons; no extracted assets or external fonts.
 - `src/App.tsx`: game UI, Pointer Events, feedback, menus and optional synthesized audio.
-- `src/styles/game.css`: responsive layout, city themes, animations and reduced-motion support.
+- `src/styles/game.css`: SVG presentation, shared menus, city themes, animations and reduced-motion support.
+- `src/styles/play-screen.css`: viewport-filling game canvas, integrated HUD and bottom dock, safe-area spacing and compact phone layouts.
 - `src/tests/`, `tests/`, `scripts/`: unit tests, browser tests, reproducible balance simulations and screenshot capture.
 
 See [GAME_DESIGN.md](GAME_DESIGN.md) for rules and [BALANCE.md](BALANCE.md) for economy details. This game is an original interpretation, with its own artwork, names and interface; it is not affiliated with Gram Games.
 
 ## Verified release checks
 
-The completed implementation passed 50 Vitest cases, 14 Playwright tests across desktop and mobile, production-build smoke checks at both viewport sizes, and `npm run build`. All five deterministic 15-minute simulations reproduced their committed results. Browser automation used Chromium; physical-device Safari and Firefox testing remains outside this verification.
+The completed implementation passed 50 Vitest cases, 16 Playwright tests across desktop and mobile, production-build smoke checks at both viewport sizes, and `npm run build`. All five deterministic 15-minute simulations reproduced their committed results. Browser automation used Chromium; physical-device Safari and Firefox testing remains outside this verification.

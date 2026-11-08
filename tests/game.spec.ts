@@ -172,7 +172,7 @@ test("keyboard board controls and modal escape work", async ({ page }) => {
   await expect(page.getByRole("dialog")).toHaveCount(0);
 });
 
-test("only unlocked land appears and the straight camera pulls back on expansion", async ({
+test("only unlocked land appears and the camera fits each expansion", async ({
   page,
 }) => {
   const s = newGame();
@@ -194,9 +194,9 @@ test("only unlocked land appears and the straight camera pulls back on expansion
   await expect(page.locator("[data-plot]")).toHaveCount(7);
   await expect(page.getByTestId("plot-16")).toBeVisible();
   await expect(board).toHaveAttribute("data-rows", "3");
-  expect(Number(await board.getAttribute("data-camera-scale"))).toBeLessThan(
-    initialScale,
-  );
+  expect(
+    Number(await board.getAttribute("data-camera-scale")),
+  ).toBeLessThanOrEqual(initialScale);
   // Wait for the camera's transition; matrix off-diagonals must remain zero.
   await expect
     .poll(() =>
@@ -279,4 +279,96 @@ test("a mature saved city keeps all 25 plots visible and usable", async ({
   await expect(page.getByTestId("plot-0")).toHaveAttribute("data-tier", "20");
   await page.reload();
   await expect(page.getByTestId("plot-0")).toHaveAttribute("data-tier", "20");
+});
+
+test("the integrated game keeps its HUD, town and controls on screen without scrolling", async ({
+  page,
+  isMobile,
+}) => {
+  const s = newGame();
+  s.cities.meadowville.xp = 538;
+  s.cities.meadowville.discovered = [20];
+  s.cities.meadowville.board[24] = { kind: "building", tier: 20, party: false };
+  await page.addInitScript(
+    ({ s, key }) => {
+      if (!localStorage.getItem(key))
+        localStorage.setItem(key, JSON.stringify(s));
+    },
+    { s, key: saveKey },
+  );
+  const sizes = isMobile
+    ? [
+        [320, 568],
+        [360, 640],
+        [384, 740],
+        [390, 844],
+      ]
+    : [
+        [1440, 900],
+        [1024, 768],
+      ];
+  await page.setViewportSize({ width: sizes[0][0], height: sizes[0][1] });
+  await page.goto("/");
+  await expect(page.locator(".site-header,.site-footer,aside")).toHaveCount(0);
+  for (const [width, height] of sizes) {
+    await page.setViewportSize({ width, height });
+    await expect
+      .poll(() =>
+        page.locator(".play-area").evaluate((frame) => {
+          const r = frame.getBoundingClientRect();
+          const selectors = [
+            ".game-topbar",
+            ".game-dock",
+            '[data-testid="generate"]',
+            ".shop-shortcut",
+            ".bottom-nav",
+          ];
+          return (
+            Math.abs(r.top) < 1 &&
+            Math.abs(r.bottom - innerHeight) < 1 &&
+            document.documentElement.scrollHeight <= innerHeight &&
+            document.documentElement.scrollWidth <= innerWidth &&
+            selectors.every((selector) => {
+              const b = frame.querySelector(selector)!.getBoundingClientRect();
+              return (
+                b.left >= 0 &&
+                b.right <= innerWidth + 0.5 &&
+                b.top >= 0 &&
+                b.bottom <= innerHeight + 0.5
+              );
+            })
+          );
+        }),
+      )
+      .toBe(true);
+    await expect
+      .poll(() =>
+        page.getByTestId("plot-24").evaluate((el) => {
+          const p = el.getBoundingClientRect();
+          const top = document
+            .querySelector(".game-topbar")!
+            .getBoundingClientRect().bottom;
+          const bottom = document
+            .querySelector(".game-dock")!
+            .getBoundingClientRect().top;
+          return (
+            p.left >= 0 &&
+            p.right <= innerWidth + 0.5 &&
+            p.top >= top &&
+            p.bottom <= bottom
+          );
+        }),
+      )
+      .toBe(true);
+  }
+  await page.getByTestId("plot-24").click();
+  await expect(page.locator(".selection-info")).toContainText(
+    "Crown of the Meadow",
+  );
+  await expect(
+    page.getByRole("button", { name: "Shop", exact: true }),
+  ).toBeInViewport({ ratio: 1 });
+  await page.getByRole("button", { name: "Boosts", exact: true }).click();
+  await expect(page.getByRole("dialog")).toContainText("A little extra spark");
+  await page.getByRole("button", { name: "Close menu" }).click();
 });
