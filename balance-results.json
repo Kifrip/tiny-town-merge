@@ -1,0 +1,363 @@
+{
+  "seed": 22113,
+  "durationSeconds": 900,
+  "notes": "Bots open all crates and merge all pairs at interaction times. Full board starts with six distinct building tiers and intentionally waits 180s before using the free recycle recovery. Blocked seconds means a full board without a matching pair; recycling remains available. Active bots tap twice/second. Casual bots interact every 8s; passive bots every 60s.",
+  "results": [
+    {
+      "mode": "Active",
+      "timeline": {
+        "firstMerge": 1,
+        "tier3": 2,
+        "tier5": 15,
+        "sunshore": 34
+      },
+      "snapshots": [
+        {
+          "seconds": 15,
+          "earned": 1261,
+          "coins": 691,
+          "income": 96,
+          "merges": 11,
+          "bestTier": 5,
+          "level": 4,
+          "plots": 10,
+          "upgrades": 5,
+          "blockedSeconds": 0
+        },
+        {
+          "seconds": 60,
+          "earned": 159736,
+          "coins": 23796,
+          "income": 8981.5,
+          "merges": 61,
+          "bestTier": 10,
+          "level": 12,
+          "plots": 21,
+          "upgrades": 16,
+          "blockedSeconds": 0
+        },
+        {
+          "seconds": 180,
+          "earned": 12097287,
+          "coins": 683837,
+          "income": 224100.5,
+          "merges": 220,
+          "bestTier": 14,
+          "level": 21,
+          "plots": 25,
+          "upgrades": 20,
+          "blockedSeconds": 0
+        },
+        {
+          "seconds": 300,
+          "earned": 66134156,
+          "coins": 2185977,
+          "income": 691673.2,
+          "merges": 377,
+          "bestTier": 16,
+          "level": 29,
+          "plots": 25,
+          "upgrades": 20,
+          "blockedSeconds": 0
+        },
+        {
+          "seconds": 900,
+          "earned": 2212457697,
+          "coins": 20037206,
+          "income": 7833290,
+          "merges": 1177,
+          "bestTier": 19,
+          "level": 71,
+          "plots": 25,
+          "upgrades": 20,
+          "blockedSeconds": 0
+        }
+      ]
+    },
+    {
+      "mode": "Casual",
+      "timeline": {
+        "firstMerge": 8,
+        "tier3": 8,
+        "tier5": 48,
+        "sunshore": 88
+      },
+      "snapshots": [
+        {
+          "seconds": 15,
+          "earned": 122,
+          "coins": 107,
+          "income": 12,
+          "merges": 3,
+          "bestTier": 3,
+          "level": 2,
+          "plots": 7,
+          "upgrades": 1,
+          "blockedSeconds": 0
+        },
+        {
+          "seconds": 60,
+          "earned": 4061,
+          "coins": 1716,
+          "income": 164,
+          "merges": 14,
+          "bestTier": 6,
+          "level": 5,
+          "plots": 11,
+          "upgrades": 7,
+          "blockedSeconds": 0
+        },
+        {
+          "seconds": 180,
+          "earned": 883330,
+          "coins": 410365,
+          "income": 22353.6,
+          "merges": 71,
+          "bestTier": 11,
+          "level": 13,
+          "plots": 22,
+          "upgrades": 18,
+          "blockedSeconds": 0
+        },
+        {
+          "seconds": 300,
+          "earned": 7500251,
+          "coins": 2484562,
+          "income": 91516.2,
+          "merges": 131,
+          "bestTier": 13,
+          "level": 17,
+          "plots": 25,
+          "upgrades": 20,
+          "blockedSeconds": 0
+        },
+        {
+          "seconds": 900,
+          "earned": 310367799,
+          "coins": 17908909,
+          "income": 1100395.4,
+          "merges": 426,
+          "bestTier": 16,
+          "level": 31,
+          "plots": 25,
+          "upgrades": 20,
+          "blockedSeconds": 0
+        }
+      ]
+    },
+    {
+      "mode": "Mostly passive",
+      "timeline": {
+        "firstMerge": 60,
+        "tier3": 60,
+        "tier5": 180,
+        "sunshore": 600
+      },
+      "snapshots": [
+        {
+          "seconds": 15,
+          "earned": 0,
+          "coins": 20,
+          "income": 0,
+          "merges": 0,
+          "bestTier": 0,
+          "level": 1,
+          "plots": 6,
+          "upgrades": 0,
+          "blockedSeconds": 0
+        },
+        {
+          "seconds": 60,
+          "earned": 46,
+          "coins": 66,
+          "income": 16,
+          "merges": 4,
+          "bestTier": 3,
+          "level": 2,
+          "plots": 7,
+          "upgrades": 0,
+          "blockedSeconds": 9
+        },
+        {
+          "seconds": 180,
+          "earned": 3550,
+          "coins": 3570,
+          "income": 64,
+          "merges": 15,
+          "bestTier": 5,
+          "level": 5,
+          "plots": 11,
+          "upgrades": 0,
+          "blockedSeconds": 29
+        },
+        {
+          "seconds": 300,
+          "earned": 12377,
+          "coins": 12397,
+          "income": 106,
+          "merges": 25,
+          "bestTier": 5,
+          "level": 6,
+          "plots": 13,
+          "upgrades": 0,
+          "blockedSeconds": 29
+        },
+        {
+          "seconds": 900,
+          "earned": 148757,
+          "coins": 148777,
+          "income": 364,
+          "merges": 85,
+          "bestTier": 7,
+          "level": 9,
+          "plots": 17,
+          "upgrades": 0,
+          "blockedSeconds": 29
+        }
+      ]
+    },
+    {
+      "mode": "Aggressive purchases",
+      "timeline": {
+        "firstMerge": 1,
+        "tier3": 1,
+        "tier5": 10,
+        "sunshore": 23,
+        "tier20": 702
+      },
+      "snapshots": [
+        {
+          "seconds": 15,
+          "earned": 3488,
+          "coins": 323,
+          "income": 280,
+          "merges": 21,
+          "bestTier": 6,
+          "level": 6,
+          "plots": 13,
+          "upgrades": 9,
+          "blockedSeconds": 0
+        },
+        {
+          "seconds": 60,
+          "earned": 342323,
+          "coins": 3292,
+          "income": 17614.3,
+          "merges": 106,
+          "bestTier": 11,
+          "level": 14,
+          "plots": 24,
+          "upgrades": 16,
+          "blockedSeconds": 0
+        },
+        {
+          "seconds": 180,
+          "earned": 20332155,
+          "coins": 61941,
+          "income": 370219.4,
+          "merges": 344,
+          "bestTier": 15,
+          "level": 27,
+          "plots": 25,
+          "upgrades": 19,
+          "blockedSeconds": 0
+        },
+        {
+          "seconds": 300,
+          "earned": 123828863,
+          "coins": 144243,
+          "income": 1382709.2,
+          "merges": 581,
+          "bestTier": 17,
+          "level": 40,
+          "plots": 25,
+          "upgrades": 20,
+          "blockedSeconds": 0
+        },
+        {
+          "seconds": 900,
+          "earned": 5301035497,
+          "coins": 25564412,
+          "income": 19857236.6,
+          "merges": 1779,
+          "bestTier": 20,
+          "level": 112,
+          "plots": 25,
+          "upgrades": 20,
+          "blockedSeconds": 0
+        }
+      ]
+    },
+    {
+      "mode": "Full board",
+      "timeline": {
+        "tier3": 1,
+        "tier5": 1,
+        "firstMerge": 180,
+        "sunshore": 300
+      },
+      "snapshots": [
+        {
+          "seconds": 15,
+          "earned": 3618,
+          "coins": 3638,
+          "income": 241.2,
+          "merges": 0,
+          "bestTier": 6,
+          "level": 1,
+          "plots": 6,
+          "upgrades": 0,
+          "blockedSeconds": 15
+        },
+        {
+          "seconds": 60,
+          "earned": 14472,
+          "coins": 14492,
+          "income": 241.2,
+          "merges": 0,
+          "bestTier": 6,
+          "level": 1,
+          "plots": 6,
+          "upgrades": 0,
+          "blockedSeconds": 60
+        },
+        {
+          "seconds": 180,
+          "earned": 44860,
+          "coins": 44660,
+          "income": 270,
+          "merges": 5,
+          "bestTier": 7,
+          "level": 4,
+          "plots": 10,
+          "upgrades": 1,
+          "blockedSeconds": 179
+        },
+        {
+          "seconds": 300,
+          "earned": 119632,
+          "coins": 24757,
+          "income": 1734,
+          "merges": 19,
+          "bestTier": 9,
+          "level": 8,
+          "plots": 15,
+          "upgrades": 9,
+          "blockedSeconds": 179
+        },
+        {
+          "seconds": 900,
+          "earned": 43195107,
+          "coins": 41622171,
+          "income": 150956.5,
+          "merges": 217,
+          "bestTier": 14,
+          "level": 21,
+          "plots": 25,
+          "upgrades": 20,
+          "blockedSeconds": 179
+        }
+      ]
+    }
+  ]
+}
