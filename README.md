@@ -64,7 +64,9 @@ For other hosts, run `npm ci && npm run build`, then upload the contents of `dis
 - `src/game/config/`: all buildings, incomes, prices, city parameters, upgrades, progression and economy settings.
 - `src/game/engine/core.ts`: immutable, deterministic actions; board rules; RNG; income; bonuses; clock integration; offline reports; achievements. It has no React or browser dependencies.
 - `src/game/persistence/saves.ts`: JSON validation, recovery and LocalStorage/file operations.
-- `src/components/Building/BuildingArt.tsx`: original tiered 2.5D building artwork, restored to the previous silhouettes and palettes, with warm window lighting in dark mode.
+- `src/components/Building/BuildingArt.tsx`: city-aware building renderer; Sunshore retains its original SVG artwork and night window lighting.
+- `src/components/Building/MeadowvilleArt.tsx`: displays the user-selected Meadowville atlas as 20 individually framed, transparent sprites.
+- `src/assets/buildings/`: the original local PNG atlas and per-tier frame coordinates. `spritecook-assets.json` records its source asset ID and file hash. No image service is called at runtime.
 - `src/components/Art.tsx`: shared crates and original interface icons; no extracted assets or external fonts.
 - `src/App.tsx`: game UI, Pointer Events, feedback, menus and optional synthesized audio.
 - `src/styles/game.css`: SVG presentation, shared menus, city themes, animations and reduced-motion support.
@@ -76,4 +78,4 @@ See [GAME_DESIGN.md](GAME_DESIGN.md) for rules and [BALANCE.md](BALANCE.md) for 
 
 ## Verified release checks
 
-The completed implementation passed 60 Vitest cases, 18 Playwright tests across desktop and mobile, production-build smoke checks at both viewport sizes, and `npm run build`. All five deterministic 15-minute simulations reproduced their committed results. Browser automation used Chromium; physical-device Safari and Firefox testing remains outside this verification.
+The completed implementation passed 61 Vitest cases, 20 Playwright tests across desktop and mobile, production-build smoke checks at both viewport sizes, and `npm run build`. All five deterministic 15-minute simulations reproduced their committed results. Browser automation used Chromium; physical-device Safari and Firefox testing remains outside this verification.

@@ -1,3 +1,4 @@
+import { MeadowvilleArt } from "./MeadowvilleArt";
 import { building } from "../../game/config/buildings";
 import type { CityId } from "../../game/types";
 export function BuildingArt({
@@ -9,6 +10,8 @@ export function BuildingArt({
   city?: CityId;
   silhouette?: boolean;
 }) {
+  if (city === "meadowville")
+    return <MeadowvilleArt tier={tier} silhouette={silhouette} />;
   const b = building(city, tier),
     tropical = city === "sunshore",
     h =

@@ -415,3 +415,46 @@ test("theme follows the system, supports an override and survives city changes a
   await page.emulateMedia({ colorScheme: "light" });
   await expect(page.locator(".app")).toHaveClass(/theme-light/);
 });
+
+test("Meadowville uses all twenty approved sprite frames in the board and collection", async ({
+  page,
+}) => {
+  const s = newGame();
+  s.cities.meadowville.xp = 538;
+  s.cities.meadowville.discovered = Array.from({ length: 20 }, (_, i) => i + 1);
+  for (let i = 0; i < 20; i++)
+    s.cities.meadowville.board[i] = {
+      kind: "building",
+      tier: i + 1,
+      party: false,
+    };
+  await page.addInitScript(
+    ({ s, key }) => {
+      if (!localStorage.getItem(key))
+        localStorage.setItem(key, JSON.stringify(s));
+    },
+    { s, key: saveKey },
+  );
+  const bad: string[] = [];
+  page.on("requestfailed", (r) => bad.push(r.url()));
+  await page.goto("/");
+  await expect(page.locator(".meadowville-sprite image")).toHaveCount(20);
+  const url = await page
+    .locator(".meadowville-sprite image")
+    .first()
+    .getAttribute("href");
+  expect(url).toContain("meadowville-atlas");
+  expect((await page.request.get(url!)).ok()).toBe(true);
+  const boxes = await page
+    .locator(".meadowville-sprite > svg")
+    .evaluateAll((nodes) => nodes.map((n) => n.getAttribute("viewBox")));
+  expect(new Set(boxes).size).toBe(20);
+  await page.getByRole("button", { name: "Collection", exact: true }).click();
+  await expect(
+    page.locator(".collection-item .meadowville-sprite"),
+  ).toHaveCount(20);
+  await page.getByRole("button", { name: "Close menu" }).click();
+  await page.getByRole("button", { name: "Sunshore", exact: true }).click();
+  await expect(page.locator(".meadowville-sprite")).toHaveCount(0);
+  expect(bad).toEqual([]);
+});

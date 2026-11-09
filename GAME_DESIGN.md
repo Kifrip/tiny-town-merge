@@ -31,7 +31,9 @@ Merging source tier `t` awards `t` XP and six seconds of that tier's base income
 
 ## Building collection
 
-Both cities have 20 original names and procedurally authored SVG architectural designs. Each tier has its own configured color/roof, income and price; silhouette variations include cottage roofs, wings, turrets, apartments, podiums, setbacks, spires, solar arcs and landmark crowns. Tropical artwork adds coastal palettes and palms. No emoji are used as building art.
+Both cities have 20 building tiers and their original names. Meadowville now uses the exact user-approved SpriteCook atlas (asset `2c616df4-dad8-4536-876e-114b70390cc0`). Its twenty houses are mapped left-to-right, top-to-bottom across the source's five columns and four rows. The original RGBA pixels are stored locally and displayed using individual SVG crop viewports, preserving transparency and aligning each foundation to its plot. Frame boundaries follow the actual gaps between objects, rather than assuming uniformly spaced rows. One cached image serves all twenty tiers, is preloaded when Meadowville is active, and uses a content-hashed production URL.
+
+Sunshore retains the prior SVG building silhouettes and coastal palette. Tier IDs, names, income, prices, progression and save format are unchanged. Dark-mode UI works in both cities; Sunshore's SVG windows retain their warm lighting, while Meadowville preserves the supplied image colors. No external asset service is needed while playing.
 
 | Tier | Meadowville         | Sunshore              |
 | ---- | ------------------- | --------------------- |
