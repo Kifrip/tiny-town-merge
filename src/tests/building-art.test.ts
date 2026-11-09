@@ -17,7 +17,7 @@ describe("building illustrations", () => {
       expect(svg).not.toMatch(/NaN|undefined/);
     }
   });
-  it("keeps the approved Meadowville images separate from the original coastal artwork", () => {
+  it("keeps the two approved city atlases separate", () => {
     for (let tier = 1; tier <= 20; tier++) {
       const shape = (city: "meadowville" | "sunshore") =>
         renderToStaticMarkup(
@@ -29,23 +29,25 @@ describe("building illustrations", () => {
 });
 
 import frames from "../assets/buildings/meadowville-frames.json";
+import sunFrames from "../assets/buildings/sunshore-frames.json";
 import { readFileSync } from "node:fs";
-it("maps exactly twenty non-overlapping frames inside the approved RGBA atlas", () => {
+it.each(CITY_IDS)("maps twenty non-overlapping RGBA frames for %s", (city) => {
+  const activeFrames = city === "meadowville" ? frames : sunFrames;
   const png = readFileSync(
-    new URL("../assets/buildings/meadowville-atlas.png", import.meta.url),
+    new URL(`../assets/buildings/${city}-atlas.png`, import.meta.url),
   );
   expect(png.readUInt32BE(16)).toBe(1024);
   expect(png.readUInt32BE(20)).toBe(1024);
   expect(png[25]).toBe(6);
-  expect(frames).toHaveLength(20);
-  frames.forEach((f, i) => {
+  expect(activeFrames).toHaveLength(20);
+  activeFrames.forEach((f, i) => {
     expect(f.width).toBeGreaterThan(100);
     expect(f.height).toBeGreaterThan(100);
     expect(f.x).toBeGreaterThanOrEqual(0);
     expect(f.y).toBeGreaterThanOrEqual(0);
     expect(f.x + f.width).toBeLessThanOrEqual(1024);
     expect(f.y + f.height).toBeLessThanOrEqual(1024);
-    frames
+    activeFrames
       .slice(i + 1)
       .forEach((g) =>
         expect(

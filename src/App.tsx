@@ -24,6 +24,7 @@ import {
   exportSave,
 } from "./game/persistence/saves";
 import { BuildingArt, CrateArt, Icon } from "./components/Art";
+import sunshoreAtlas from "./assets/buildings/sunshore-atlas.png";
 import meadowAtlas from "./assets/buildings/meadowville-atlas.png";
 import { useTheme } from "./components/useTheme";
 import { useBoardCamera } from "./components/Board/useBoardCamera";
@@ -363,9 +364,11 @@ export default function App() {
     <div
       className={`app game-screen theme-${theme} ${id} ${game.settings.reducedMotion ? "reduce-motion" : ""}`}
     >
-      {id === "meadowville" && (
-        <link rel="preload" as="image" href={meadowAtlas} />
-      )}
+      <link
+        rel="preload"
+        as="image"
+        href={id === "meadowville" ? meadowAtlas : sunshoreAtlas}
+      />
       <main className="play-area" aria-label="Town game">
         <header className="game-topbar">
           <div className="game-identity">
