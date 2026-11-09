@@ -496,6 +496,8 @@ export default function App() {
                       top: Math.floor(index / 5) * PLOT_STEP,
                       width: PLOT_SIZE,
                       height: PLOT_SIZE,
+                      // Front rows must cover back rows, independent of unlock order.
+                      zIndex: index + 1,
                     }}
                     className={`plot unlocked ${selected === index ? "is-selected" : ""} ${compatible ? "compatible" : ""} ${drag?.from === index ? "drag-source" : ""} ${hover === index ? "drag-over" : ""} ${effect?.index === index ? `effect-${effect.kind}` : ""}`}
                     aria-label={
