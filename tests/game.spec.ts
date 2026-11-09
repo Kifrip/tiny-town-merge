@@ -452,10 +452,105 @@ for (const city of ["meadowville", "sunshore"] as const)
       .locator(`.${city}-sprite > svg`)
       .evaluateAll((nodes) => nodes.map((n) => n.getAttribute("viewBox")));
     expect(new Set(boxes).size).toBe(20);
+    // Rasterize the real SVGs: overflow:hidden alone clips the square viewport,
+    // leaving atlas neighbors visible in the padding around a tall building.
+    const bleedingTiers = await page.locator(`.${city}-sprite`).evaluateAll(
+      async (nodes) => {
+        const href = nodes[0].querySelector("image")!.getAttribute("href")!;
+        const blob = await (await fetch(href)).blob();
+        const atlasData = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+        const atlas = new Image();
+        atlas.src = atlasData;
+        await atlas.decode();
+        const atlasCanvas = document.createElement("canvas");
+        atlasCanvas.width = atlasCanvas.height = 1024;
+        const atlasContext = atlasCanvas.getContext("2d")!;
+        atlasContext.drawImage(atlas, 0, 0);
+        const failures: string[] = [];
+        for (const node of nodes) {
+          const svg = node.cloneNode(true) as SVGSVGElement;
+          svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+          svg.setAttribute("width", "240");
+          svg.setAttribute("height", "248");
+          svg.querySelector("image")!.setAttribute("href", atlasData);
+          const [frameX, frameY, width, height] = svg.querySelector("svg")!
+            .getAttribute("viewBox")!.split(" ").map(Number);
+          // Frame rectangles must also exclude fragments already inside the
+          // crop, not just prevent the atlas showing through viewport padding.
+          // Ignore the faint background and tiny anti-aliasing islands.
+          const pixels = atlasContext.getImageData(frameX, frameY, width, height).data;
+          const visited = new Uint8Array(width * height);
+          let foregroundParts = 0;
+          for (let start = 0; start < visited.length; start++) {
+            if (visited[start] || pixels[start * 4 + 3] <= 32) continue;
+            const stack = [start];
+            visited[start] = 1;
+            let area = 0;
+            while (stack.length) {
+              const pixel = stack.pop()!;
+              area++;
+              const x = pixel % width;
+              const neighbors = [pixel - width, pixel + width];
+              if (x > 0) neighbors.push(pixel - 1);
+              if (x < width - 1) neighbors.push(pixel + 1);
+              for (const next of neighbors) {
+                if (next >= 0 && next < visited.length && !visited[next] &&
+                    pixels[next * 4 + 3] > 32) {
+                  visited[next] = 1;
+                  stack.push(next);
+                }
+              }
+            }
+            if (area >= 20) foregroundParts++;
+          }
+          if (foregroundParts !== 1)
+            failures.push(`${node.getAttribute("data-art")}: stray fragment inside frame`);
+          const scale = Math.min(114 / width, 114 / height);
+          const left = 3 + (114 - width * scale) / 2;
+          const top = 117 - height * scale;
+          const right = left + width * scale;
+          const source = new Image();
+          source.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+            new XMLSerializer().serializeToString(svg),
+          )}`;
+          await source.decode();
+          const canvas = document.createElement("canvas");
+          canvas.width = 240;
+          canvas.height = 248;
+          const context = canvas.getContext("2d")!;
+          context.drawImage(source, 0, 0);
+          const { data } = context.getImageData(0, 0, 240, 248);
+          let bleed = false;
+          for (let y = 6; y < 234 && !bleed; y++) {
+            for (let x = 6; x < 234; x++) {
+              const px = (x + 0.5) / 2;
+              const py = (y + 0.5) / 2;
+              if ((px < left - 1 || px > right + 1 || py < top - 1) &&
+                  data[(y * 240 + x) * 4 + 3] > 0) {
+                bleed = true;
+                break;
+              }
+            }
+          }
+          if (bleed) failures.push(node.getAttribute("data-art")!);
+        }
+        return failures;
+      },
+    );
+    expect(bleedingTiers).toEqual([]);
     await page.getByRole("button", { name: "Collection", exact: true }).click();
     await expect(page.locator(`.collection-item .${city}-sprite`)).toHaveCount(
       20,
     );
+    const clipIds = await page.locator(".building-art clipPath").evaluateAll(
+      (nodes) => nodes.map((node) => node.id),
+    );
+    expect(new Set(clipIds).size).toBe(clipIds.length);
     await page.getByRole("button", { name: "Close menu" }).click();
     await page
       .getByRole("button", {
