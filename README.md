@@ -67,7 +67,7 @@ For other hosts, run `npm ci && npm run build`, then upload the contents of `dis
 - `src/components/Building/BuildingArt.tsx`: city-aware renderer for the two user-approved building atlases.
 - `src/components/Building/MeadowvilleArt.tsx`: displays the user-selected Meadowville atlas as 20 individually framed, transparent sprites.
 - `src/components/Building/SunshoreArt.tsx`: displays the approved tropical atlas for Sunshore with the same row-aware depth ordering.
-- `src/assets/buildings/`: the original local PNG atlas and per-tier frame coordinates. `spritecook-assets.json` records its source asset ID and file hash. No image service is called at runtime.
+- `src/assets/buildings/`: local PNG atlases and per-tier frame coordinates. `spritecook-assets.json` records source information and file hashes. No image service is called at runtime.
 - `src/components/Art.tsx`: shared crates and original interface icons; no extracted assets or external fonts.
 - `src/App.tsx`: game UI, Pointer Events, feedback, menus and optional synthesized audio.
 - `src/styles/game.css`: SVG presentation, shared menus, city themes, animations and reduced-motion support.
@@ -76,6 +76,21 @@ For other hosts, run `npm ci && npm run build`, then upload the contents of `dis
 - `src/tests/`, `tests/`, `scripts/`: unit tests, browser tests, reproducible balance simulations and screenshot capture.
 
 See [GAME_DESIGN.md](GAME_DESIGN.md) for rules and [BALANCE.md](BALANCE.md) for economy details. This game is an original interpretation, with its own artwork, names and interface; it is not affiliated with Gram Games.
+
+## Meadowville artwork
+
+Meadowville uses the user's updated 20-building progression: red roofs at tiers 1–6,
+blue at 7–12, and emerald glass at 13–20. The local RGBA atlas is 1600×1408;
+its dimensions are stored beside the per-tier frame coordinates. Sunshore retains
+its separate tropical artwork. Artwork changes do not alter save data or income.
+
+After an approved source sheet has been cleaned, prepare its 20 connected sprites
+with `node scripts/import-meadowville.mjs /path/to/sheet.png`. This development-only
+tool uses Playwright/Chromium to discard detached debris and near-transparent
+matte pixels, isolate the buildings, and pack them into padded cells without
+cropping or resizing them. It updates the atlas, frame metadata and source hash.
+It fails if the input does not contain 20 separate buildings or a building cannot
+fit without cropping. Review the mobile board and collection after importing.
 
 ## Verified release checks
 

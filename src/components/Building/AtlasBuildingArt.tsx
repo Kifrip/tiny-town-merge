@@ -8,12 +8,14 @@ export function AtlasBuildingArt({
   tier,
   atlas,
   frame,
+  atlasSize = { width: 1024, height: 1024 },
   silhouette = false,
 }: {
   city: CityId;
   tier: number;
   atlas: string;
   frame: Frame;
+  atlasSize?: { width: number; height: number };
   silhouette?: boolean;
 }) {
   const clipId = useId();
@@ -42,8 +44,8 @@ export function AtlasBuildingArt({
             the frame itself so neighboring sprites cannot enter that space. */}
         <image
           href={atlas}
-          width="1024"
-          height="1024"
+          width={atlasSize.width}
+          height={atlasSize.height}
           clipPath={`url(#${clipId})`}
         />
       </svg>

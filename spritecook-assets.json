@@ -1,12 +1,12 @@
 {
   "meadowville-atlas": {
-    "asset_id": "2c616df4-dad8-4536-876e-114b70390cc0",
-    "sha12": "c0c52d55a2f6",
-    "label": "User-selected Meadowville buildings, tiers 1\u201320, row-major 5\u00d74"
+    "source": "User-approved replacement sheet, cleaned with ChatGPT image editing and isolated into 20 padded frames",
+    "sha12": "c022a4a5785f",
+    "label": "Meadowville tiers 1–20: red 1–6, blue 7–12, emerald 13–20"
   },
   "sunshore-atlas": {
     "asset_id": "8d464731-5b91-4f5f-8d67-10e7ec5eae66",
     "sha12": "bf5a070b4c74",
-    "label": "User-selected Sunshore buildings, tiers 1\u201320, row-major 5\u00d74"
+    "label": "User-selected Sunshore buildings, tiers 1–20, row-major 5×4"
   }
 }

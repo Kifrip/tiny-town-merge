@@ -36,8 +36,12 @@ it.each(CITY_IDS)("maps twenty non-overlapping RGBA frames for %s", (city) => {
   const png = readFileSync(
     new URL(`../assets/buildings/${city}-atlas.png`, import.meta.url),
   );
-  expect(png.readUInt32BE(16)).toBe(1024);
-  expect(png.readUInt32BE(20)).toBe(1024);
+  const width = png.readUInt32BE(16);
+  const height = png.readUInt32BE(20);
+  expect(width).toBeGreaterThanOrEqual(1024);
+  expect(height).toBeGreaterThanOrEqual(1024);
+  const markup = renderToStaticMarkup(createElement(BuildingArt, { city, tier: 1 }));
+  expect(markup).toContain(`width="${width}" height="${height}"`);
   expect(png[25]).toBe(6);
   expect(activeFrames).toHaveLength(20);
   activeFrames.forEach((f, i) => {
@@ -45,8 +49,8 @@ it.each(CITY_IDS)("maps twenty non-overlapping RGBA frames for %s", (city) => {
     expect(f.height).toBeGreaterThan(100);
     expect(f.x).toBeGreaterThanOrEqual(0);
     expect(f.y).toBeGreaterThanOrEqual(0);
-    expect(f.x + f.width).toBeLessThanOrEqual(1024);
-    expect(f.y + f.height).toBeLessThanOrEqual(1024);
+    expect(f.x + f.width).toBeLessThanOrEqual(width);
+    expect(f.y + f.height).toBeLessThanOrEqual(height);
     activeFrames
       .slice(i + 1)
       .forEach((g) =>

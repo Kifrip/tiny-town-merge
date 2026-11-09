@@ -468,7 +468,8 @@ for (const city of ["meadowville", "sunshore"] as const)
         atlas.src = atlasData;
         await atlas.decode();
         const atlasCanvas = document.createElement("canvas");
-        atlasCanvas.width = atlasCanvas.height = 1024;
+        atlasCanvas.width = atlas.naturalWidth;
+        atlasCanvas.height = atlas.naturalHeight;
         const atlasContext = atlasCanvas.getContext("2d")!;
         atlasContext.drawImage(atlas, 0, 0);
         const failures: string[] = [];
