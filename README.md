@@ -1,3 +1,5 @@
+> Publishing now uses [the organization GitHub Actions pipeline](docs/platform-publishing.md). This supersedes older deployment notes below.
+
 # Tiny Town Merge
 
 A complete, original, browser-based merge town game built with React, TypeScript and Vite. Open crates, combine matching buildings, grow a passive economy and discover 40 buildings across leafy Meadowville and tropical Sunshore. No accounts, ads, backend, external runtime requests or paid services.

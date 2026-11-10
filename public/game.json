@@ -1,0 +1,27 @@
+{
+  "slug": "tiny-town-merge",
+  "title": "Tiny Town Merge",
+  "shortDescription": "Small buildings. Big plans. One very mergeable town.",
+  "description": "Open crates, merge matching buildings, and turn a tiny patch of land into a thriving town. Earn coins, unlock new plots, and discover buildings across Meadowville and Sunshore.",
+  "coverAlt": "Tiny Town Merge gameplay with colorful buildings and crates on a green town grid",
+  "primaryCategory": "Merge",
+  "categories": [
+    "Merge",
+    "Idle",
+    "Casual"
+  ],
+  "featured": true,
+  "controls": [
+    "Tap a crate to open it. Drag matching buildings together, or tap one and then a matching target.",
+    "Move buildings onto empty plots or swap them. Keyboard: focus a plot, then press Enter or Space to select and target.",
+    "Use the delivery button for crates. The bottom dock opens the shop, upgrades, collection, and settings."
+  ],
+  "languages": "English",
+  "saveNote": "Saves locally after gameplay actions. Offline earnings are capped at eight hours. Use one active tab per town; export a backup in Settings.",
+  "accent": "lime",
+  "schemaVersion": 1,
+  "status": "published",
+  "dimension": "2D",
+  "showSource": false,
+  "startQuery": ""
+}

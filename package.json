@@ -21,10 +21,11 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
-    "@playwright/test": "^1.51.0",
+    "@playwright/test": "1.65.0",
     "typescript": "~5.7.2",
     "vite": "^6.1.0",
     "vitest": "^3.0.5",
-    "tsx": "^4.19.0"
+    "tsx": "^4.19.0",
+    "wrangler": "4.159.0"
   }
 }
